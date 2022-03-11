@@ -1,0 +1,39 @@
+//
+//  Colors+Extension.swift
+//  werdd
+//
+//  Created by Jake Grant on 3/9/22.
+//
+
+import UIKit
+
+extension UIColor {
+	// from figma design doc
+	static let wBlue = UIColor(hue: 206/360, saturation: 0.62, brightness: 0.74, alpha: 1)
+	static let wOrange = UIColor(hue: 23/360, saturation: 0.63, brightness: 0.99, alpha: 1)
+	static let wGreen = UIColor(hue: 153/360, saturation: 0.33, brightness: 0.53, alpha: 1)
+	static let wPink = UIColor(hue: 4/360, saturation: 0.22, brightness: 0.85, alpha: 1)
+	static let wBackground = UIColor(hue: 20/360, saturation: 0.03, brightness: 0.92, alpha: 1)
+	
+	// https://coolors.co/palette/7bdff2-b2f7ef-eff7f6-f7d6e0-f2b5d4
+	static let springBlue = UIColor(hue: 190/360, saturation: 0.49, brightness: 0.95, alpha: 1)
+	static let springGreen = UIColor(hue: 173/360, saturation: 0.28, brightness: 0.97, alpha: 1)
+	static let springWhite = UIColor(hue: 173/360, saturation: 0.03, brightness: 0.97, alpha: 1)
+	static let springLightPink = UIColor(hue: 342/360, saturation: 0.13, brightness: 0.97, alpha: 1)
+	static let springDarkPink = UIColor(hue: 330/360, saturation: 0.25, brightness: 0.95, alpha: 1)
+	
+	// https://coolors.co/palette/e63946-f1faee-a8dadc-457b9d-1d3557
+	static let nauticalRed = UIColor(hue: 355/360, saturation: 0.75, brightness: 0.9, alpha: 1)
+	static let nauticalWhite = UIColor(hue: 105/360, saturation: 0.05, brightness: 0.98, alpha: 1)
+	static let nauticalSeafoam = UIColor(hue: 182/360, saturation: 0.24, brightness: 0.86, alpha: 1)
+	static let nauticalBlue = UIColor(hue: 203/360, saturation: 0.56, brightness: 0.62, alpha: 1)
+	static let nauticalNavy = UIColor(hue: 215/360, saturation: 0.67, brightness: 0.34, alpha: 1)
+	
+	// https://coolors.co/palette/227c9d-17c3b2-ffcb77-fef9ef-fe6d73
+	static let gapNavy = UIColor(hue: 244/360, saturation: 0.28, brightness: 0.21, alpha: 1)
+	static let gapBlue = UIColor(hue: 196/360, saturation: 0.78, brightness: 0.62, alpha: 1)
+	static let gapGreen = UIColor(hue: 174/360, saturation: 0.88, brightness: 0.76, alpha: 1)
+	static let gapYellow = UIColor(hue: 37/360, saturation: 0.53, brightness: 1.0, alpha: 1)
+	static let gapWhite = UIColor(hue: 40/360, saturation: 0.06, brightness: 1.0, alpha: 1)
+	static let gapRed = UIColor(hue: 358/360, saturation: 0.57, brightness: 1.0, alpha: 1)
+}
