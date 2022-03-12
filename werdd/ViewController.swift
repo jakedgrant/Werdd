@@ -68,7 +68,14 @@ class ViewController: UIViewController {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont(name: "PlayfairDisplay-Regular", size: 18)
-		label.text = "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"
+		
+		let definition = "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"
+		let justifiedStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
+		justifiedStyle.alignment = .justified
+		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
+		let justifiedString = NSAttributedString.init(string: definition, attributes: attributes)
+		
+		label.attributedText = justifiedString
 		label.textColor = .gapNavy
 		label.lineBreakMode = .byWordWrapping
 		label.numberOfLines = 0
