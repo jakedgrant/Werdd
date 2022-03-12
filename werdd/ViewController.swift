@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 		stack.axis = .horizontal
 		stack.alignment = .firstBaseline
 		stack.distribution = .fillProportionally
-		stack.spacing = 10
+		stack.spacing = 8
 		return stack
 	}()
 	
@@ -104,11 +104,10 @@ class ViewController: UIViewController {
 			
 			wordHStackView.topAnchor.constraint(equalTo: wordView.topAnchor, constant: 16),
 			wordHStackView.leadingAnchor.constraint(equalTo: wordView.leadingAnchor, constant: 20),
-			wordHStackView.trailingAnchor.constraint(equalTo: wordView.trailingAnchor, constant: -20),
 			
 			wordView.heightAnchor.constraint(equalTo: wordVStackView.heightAnchor, constant: 40),
 			
-			definitionLabel.widthAnchor.constraint(equalTo: wordHStackView.widthAnchor)
+			definitionLabel.widthAnchor.constraint(equalTo: wordView.widthAnchor, constant: -40)
 		])
 	}
 }
