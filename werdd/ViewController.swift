@@ -46,7 +46,6 @@ class ViewController: UIViewController {
 	var wordLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
-		label.text = "a"
 		label.textColor = .gapNavy
 		return label
 	}()
@@ -54,7 +53,6 @@ class ViewController: UIViewController {
 	var partOfSpeechLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont(name: "PlayfairDisplay-Italic", size: 16)
-		label.text = "a"
 		label.textColor = .gapNavy
 		return label
 	}()
@@ -69,14 +67,13 @@ class ViewController: UIViewController {
 	
 	let randomWordButton: UIButton = {
 		let button = UIButton()
-//		button.translatesAutoresizingMaskIntoConstraints = false
-		
+
 		let symbolConfig = UIImage.SymbolConfiguration(pointSize: 30)
 		let buttonImage = UIImage(systemName: "arrow.clockwise.circle", withConfiguration: symbolConfig)
 		button.setImage(buttonImage, for: .normal)
 		
 		button.tintColor = .gapWhite
-		button.addTarget(self, action: #selector(randomButtonPressed), for: .touchUpInside)
+		button.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
 		return button
 	}()
 	
@@ -84,14 +81,6 @@ class ViewController: UIViewController {
 		let label = UILabel()
 		label.font = UIFont(name: "PlayfairDisplay-Regular", size: 18)
 		
-		// creating justified attributed string
-		let definition = "a"
-		let justifiedStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-		justifiedStyle.alignment = .justified
-		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
-		let justifiedString = NSAttributedString.init(string: definition, attributes: attributes)
-		
-		label.attributedText = justifiedString
 		label.textColor = .gapNavy
 		label.lineBreakMode = .byWordWrapping
 		label.numberOfLines = 0
@@ -99,9 +88,7 @@ class ViewController: UIViewController {
 	}()
 	
 	// MARK: - Properties
-	var currentWord = Word(word: "onomatopaeia",
-						   partOfSpeech: "noun",
-						   definition: "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)")
+	var currentWord = Word(word: ".", partOfSpeech: ".", definition: ".")
 	
 	var words: [Word] = [
 		Word(word: "onomatopaeia", partOfSpeech: "noun", definition: "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"),
@@ -121,7 +108,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		view.backgroundColor = .gapWhite
 		
-		updateWord()
+		getRandomWord()
 		addSubViews()
 	}
 
@@ -181,8 +168,9 @@ class ViewController: UIViewController {
 		])
 	}
 	
-	@objc func randomButtonPressed() {
-		print("button pressed")
+	@objc private func getRandomWord() {
+		currentWord = words.randomElement()!
+		updateWord()
 	}
 }
 
