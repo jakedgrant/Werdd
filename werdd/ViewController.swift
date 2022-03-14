@@ -8,10 +8,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-	
+	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
 		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 48)
 		label.text = "Werdd."
 		label.textColor = .gapNavy
@@ -20,7 +19,6 @@ class ViewController: UIViewController {
 	
 	let wordView: UIView = {
 		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
 		view.backgroundColor = .gapBlue
 		view.layer.cornerRadius = 30
 		return view
@@ -28,7 +26,6 @@ class ViewController: UIViewController {
 	
 	let wordHStackView: UIStackView = {
 		let stack = UIStackView()
-		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .horizontal
 		stack.alignment = .firstBaseline
 		stack.distribution = .fillProportionally
@@ -48,7 +45,6 @@ class ViewController: UIViewController {
 	
 	let wordLabel: UILabel = {
 		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
 		label.text = "onomatopaeia"
 		label.textColor = .gapNavy
@@ -57,7 +53,6 @@ class ViewController: UIViewController {
 	
 	let partOfSpeechLabel: UILabel = {
 		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont(name: "PlayfairDisplay-Italic", size: 16)
 		label.text = "noun"
 		label.textColor = .gapNavy
@@ -66,9 +61,9 @@ class ViewController: UIViewController {
 	
 	let definitionLabel: UILabel = {
 		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont(name: "PlayfairDisplay-Regular", size: 18)
 		
+		// creating justified attributed string
 		let definition = "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"
 		let justifiedStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
 		justifiedStyle.alignment = .justified
@@ -82,6 +77,7 @@ class ViewController: UIViewController {
 		return label
 	}()
 
+	// MARK: - UI Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .gapWhite
@@ -89,6 +85,7 @@ class ViewController: UIViewController {
 		addSubViews()
 	}
 
+	// MARK: - UI Setup
 	func addSubViews() {
 		view.addSubview(titleLabel)
 		view.addSubview(wordView)
@@ -101,19 +98,24 @@ class ViewController: UIViewController {
 
 		wordView.addSubview(wordVStackView)
 		
-		NSLayoutConstraint.activate([
+		titleLabel.activate(constraints: [
 			titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-			
+			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40)
+		])
+		
+		wordView.activate(constraints: [
 			wordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			wordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 			wordView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-			
+			wordView.heightAnchor.constraint(equalTo: wordVStackView.heightAnchor, constant: 40)
+		])
+		
+		wordHStackView.activate(constraints: [
 			wordHStackView.topAnchor.constraint(equalTo: wordView.topAnchor, constant: 16),
-			wordHStackView.leadingAnchor.constraint(equalTo: wordView.leadingAnchor, constant: 20),
-			
-			wordView.heightAnchor.constraint(equalTo: wordVStackView.heightAnchor, constant: 40),
-			
+			wordHStackView.leadingAnchor.constraint(equalTo: wordView.leadingAnchor, constant: 20)
+		])
+		
+		definitionLabel.activate(constraints: [
 			definitionLabel.widthAnchor.constraint(equalTo: wordView.widthAnchor, constant: -40)
 		])
 	}

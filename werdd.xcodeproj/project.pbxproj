@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		232898A027DFD4B1000789DB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2328989F27DFD4B1000789DB /* UIView+Extension.swift */; };
 		2354EA9D27D9AC5400B1E8F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EA9C27D9AC5400B1E8F8 /* AppDelegate.swift */; };
 		2354EA9F27D9AC5400B1E8F8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EA9E27D9AC5400B1E8F8 /* SceneDelegate.swift */; };
 		2354EAA127D9AC5400B1E8F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EAA027D9AC5400B1E8F8 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2328989F27DFD4B1000789DB /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2354EA9927D9AC5400B1E8F8 /* werdd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = werdd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2354EA9C27D9AC5400B1E8F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2354EA9E27D9AC5400B1E8F8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2328989E27DFD47F000789DB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2354EAB727D9B2CC00B1E8F8 /* Colors+Extension.swift */,
+				2328989F27DFD4B1000789DB /* UIView+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		2354EA9027D9AC5400B1E8F8 = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +73,7 @@
 		2354EA9B27D9AC5400B1E8F8 /* werdd */ = {
 			isa = PBXGroup;
 			children = (
+				2328989E27DFD47F000789DB /* Extensions */,
 				2354EA9C27D9AC5400B1E8F8 /* AppDelegate.swift */,
 				2354EA9E27D9AC5400B1E8F8 /* SceneDelegate.swift */,
 				2354EAA027D9AC5400B1E8F8 /* ViewController.swift */,
@@ -69,7 +81,6 @@
 				2354EAA727D9AC5500B1E8F8 /* LaunchScreen.storyboard */,
 				2354EAAA27D9AC5500B1E8F8 /* Info.plist */,
 				2354EAB627D9B0E300B1E8F8 /* Fonts */,
-				2354EAB727D9B2CC00B1E8F8 /* Colors+Extension.swift */,
 			);
 			path = werdd;
 			sourceTree = "<group>";
@@ -160,6 +171,7 @@
 				2354EAA127D9AC5400B1E8F8 /* ViewController.swift in Sources */,
 				2354EA9D27D9AC5400B1E8F8 /* AppDelegate.swift in Sources */,
 				2354EA9F27D9AC5400B1E8F8 /* SceneDelegate.swift in Sources */,
+				232898A027DFD4B1000789DB /* UIView+Extension.swift in Sources */,
 				2354EAB827D9B2CC00B1E8F8 /* Colors+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
