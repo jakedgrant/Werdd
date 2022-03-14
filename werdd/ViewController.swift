@@ -43,18 +43,18 @@ class ViewController: UIViewController {
 		return stack
 	}()
 	
-	let wordLabel: UILabel = {
+	var wordLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
-		label.text = "onomatopaeia"
+		label.text = "a"
 		label.textColor = .gapNavy
 		return label
 	}()
 	
-	let partOfSpeechLabel: UILabel = {
+	var partOfSpeechLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont(name: "PlayfairDisplay-Italic", size: 16)
-		label.text = "noun"
+		label.text = "a"
 		label.textColor = .gapNavy
 		return label
 	}()
@@ -80,12 +80,12 @@ class ViewController: UIViewController {
 		return button
 	}()
 	
-	let definitionLabel: UILabel = {
+	var definitionLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont(name: "PlayfairDisplay-Regular", size: 18)
 		
 		// creating justified attributed string
-		let definition = "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"
+		let definition = "a"
 		let justifiedStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
 		justifiedStyle.alignment = .justified
 		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
@@ -97,16 +97,36 @@ class ViewController: UIViewController {
 		label.numberOfLines = 0
 		return label
 	}()
+	
+	// MARK: - Properties
+	var currentWord = Word(word: "onomatopaeia",
+						   partOfSpeech: "noun",
+						   definition: "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)")
 
 	// MARK: - UI Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .gapWhite
 		
+		updateWord()
 		addSubViews()
 	}
 
 	// MARK: - UI Setup
+	func updateWord() {
+		wordLabel.text = currentWord.word
+		partOfSpeechLabel.text = currentWord.partOfSpeech
+		
+		// creating justified attributed string
+		let definition = currentWord.definition
+		let justifiedStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
+		justifiedStyle.alignment = .justified
+		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
+		let justifiedString = NSAttributedString.init(string: definition, attributes: attributes)
+		
+		definitionLabel.attributedText = justifiedString
+	}
+	
 	func addSubViews() {
 		view.addSubview(titleLabel)
 		view.addSubview(wordView)
