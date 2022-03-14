@@ -38,7 +38,7 @@ class ViewController: UIViewController {
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .vertical
 		stack.alignment = .leading
-		stack.distribution = .fillProportionally
+		stack.distribution = .fill
 		stack.spacing = 6
 		return stack
 	}()
@@ -57,6 +57,27 @@ class ViewController: UIViewController {
 		label.text = "noun"
 		label.textColor = .gapNavy
 		return label
+	}()
+	
+	let buttonVStack: UIStackView = {
+		let stack = UIStackView()
+		stack.axis = .vertical
+		stack.alignment = .trailing
+		stack.distribution = .fill
+		return stack
+	}()
+	
+	let randomWordButton: UIButton = {
+		let button = UIButton()
+//		button.translatesAutoresizingMaskIntoConstraints = false
+		
+		let symbolConfig = UIImage.SymbolConfiguration(pointSize: 30)
+		let buttonImage = UIImage(systemName: "arrow.clockwise.circle", withConfiguration: symbolConfig)
+		button.setImage(buttonImage, for: .normal)
+		
+		button.tintColor = .gapWhite
+		button.addTarget(self, action: #selector(randomButtonPressed), for: .touchUpInside)
+		return button
 	}()
 	
 	let definitionLabel: UILabel = {
@@ -93,8 +114,11 @@ class ViewController: UIViewController {
 		wordHStackView.addArrangedSubview(wordLabel)
 		wordHStackView.addArrangedSubview(partOfSpeechLabel)
 		
+		buttonVStack.addArrangedSubview(randomWordButton)
+		
 		wordVStackView.addArrangedSubview(wordHStackView)
 		wordVStackView.addArrangedSubview(definitionLabel)
+		wordVStackView.addArrangedSubview(buttonVStack)
 
 		wordView.addSubview(wordVStackView)
 		
@@ -118,6 +142,14 @@ class ViewController: UIViewController {
 		definitionLabel.activate(constraints: [
 			definitionLabel.widthAnchor.constraint(equalTo: wordView.widthAnchor, constant: -40)
 		])
+		
+		buttonVStack.activate(constraints: [
+			buttonVStack.widthAnchor.constraint(equalTo: wordView.widthAnchor, constant: -40)
+		])
+	}
+	
+	@objc func randomButtonPressed() {
+		print("button pressed")
 	}
 }
 
