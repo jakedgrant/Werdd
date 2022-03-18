@@ -17,74 +17,16 @@ class ViewController: UIViewController {
 		return label
 	}()
 	
-	let wordView: UIView = {
-		let view = UIView()
-		view.backgroundColor = .gapBlue
-		view.layer.cornerRadius = 30
+	let wordView: HeroWordView = {
+		let view = HeroWordView()
 		return view
 	}()
 	
-	let wordHStackView: UIStackView = {
-		let stack = UIStackView()
-		stack.axis = .horizontal
-		stack.alignment = .firstBaseline
-		stack.distribution = .fillProportionally
-		stack.spacing = 8
-		return stack
-	}()
-	
-	let wordVStackView: UIStackView = {
-		let stack = UIStackView()
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .vertical
-		stack.alignment = .leading
-		stack.distribution = .fill
-		stack.spacing = 6
-		return stack
-	}()
-	
-	var wordLabel: UILabel = {
-		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
-		label.textColor = .gapNavy
-		return label
-	}()
-	
-	var partOfSpeechLabel: UILabel = {
-		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Italic", size: 16)
-		label.textColor = .gapNavy
-		return label
-	}()
-	
-	let buttonVStack: UIStackView = {
-		let stack = UIStackView()
-		stack.axis = .vertical
-		stack.alignment = .trailing
-		stack.distribution = .fill
-		return stack
-	}()
-	
-	let randomWordButton: UIButton = {
-		let button = UIButton()
-
-		let symbolConfig = UIImage.SymbolConfiguration(pointSize: 30)
-		let buttonImage = UIImage(systemName: "arrow.clockwise.circle", withConfiguration: symbolConfig)
-		button.setImage(buttonImage, for: .normal)
-		
+	let randomWordButton: SymbolButton = {
+		let button = SymbolButton(systemName: "arrow.clockwise.circle")		
 		button.tintColor = .gapWhite
 		button.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
 		return button
-	}()
-	
-	var definitionLabel: UILabel = {
-		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Regular", size: 18)
-		
-		label.textColor = .gapNavy
-		label.lineBreakMode = .byWordWrapping
-		label.numberOfLines = 0
-		return label
 	}()
 	
 	// MARK: - Properties
@@ -114,57 +56,29 @@ class ViewController: UIViewController {
 
 	// MARK: - UI Setup
 	func updateWord() {
-		wordLabel.text = currentWord.word
-		partOfSpeechLabel.text = currentWord.partOfSpeech
-		
-		// creating justified attributed string
-		let definition = currentWord.definition
-		let justifiedStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-		justifiedStyle.alignment = .justified
-		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
-		let justifiedString = NSAttributedString.init(string: definition, attributes: attributes)
-		
-		definitionLabel.attributedText = justifiedString
+		wordView.update(word: currentWord)
 	}
 	
 	func addSubViews() {
+		
 		view.addSubview(titleLabel)
-		view.addSubview(wordView)
-		
-		wordHStackView.addArrangedSubview(wordLabel)
-		wordHStackView.addArrangedSubview(partOfSpeechLabel)
-		
-		buttonVStack.addArrangedSubview(randomWordButton)
-		
-		wordVStackView.addArrangedSubview(wordHStackView)
-		wordVStackView.addArrangedSubview(definitionLabel)
-		wordVStackView.addArrangedSubview(buttonVStack)
-
-		wordView.addSubview(wordVStackView)
-		
 		titleLabel.activate(constraints: [
 			titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40)
 		])
 		
+		view.addSubview(wordView)
 		wordView.activate(constraints: [
 			wordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			wordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 			wordView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-			wordView.heightAnchor.constraint(equalTo: wordVStackView.heightAnchor, constant: 40)
+			wordView.heightAnchor.constraint(equalToConstant: 200)
 		])
 		
-		wordHStackView.activate(constraints: [
-			wordHStackView.topAnchor.constraint(equalTo: wordView.topAnchor, constant: 16),
-			wordHStackView.leadingAnchor.constraint(equalTo: wordView.leadingAnchor, constant: 20)
-		])
-		
-		definitionLabel.activate(constraints: [
-			definitionLabel.widthAnchor.constraint(equalTo: wordView.widthAnchor, constant: -40)
-		])
-		
-		buttonVStack.activate(constraints: [
-			buttonVStack.widthAnchor.constraint(equalTo: wordView.widthAnchor, constant: -40)
+		view.addSubview(randomWordButton)
+		randomWordButton.activate(constraints: [
+			randomWordButton.trailingAnchor.constraint(equalTo: wordView.trailingAnchor, constant: -16),
+			randomWordButton.bottomAnchor.constraint(equalTo: wordView.bottomAnchor, constant: -16)
 		])
 	}
 	

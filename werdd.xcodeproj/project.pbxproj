@@ -18,6 +18,8 @@
 		2354EAB427D9B0C300B1E8F8 /* PlayfairDisplay-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2354EAB327D9B0C300B1E8F8 /* PlayfairDisplay-Italic.ttf */; };
 		2354EAB527D9B0C800B1E8F8 /* PlayfairDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2354EAB227D9B0B400B1E8F8 /* PlayfairDisplay-Bold.ttf */; };
 		2354EAB827D9B2CC00B1E8F8 /* Colors+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EAB727D9B2CC00B1E8F8 /* Colors+Extension.swift */; };
+		235F2E2627E4326700DA1615 /* HeroWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2527E4326700DA1615 /* HeroWordView.swift */; };
+		235F2E2827E4400A00DA1615 /* SymbolButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2727E4400A00DA1615 /* SymbolButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		2354EAB227D9B0B400B1E8F8 /* PlayfairDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		2354EAB327D9B0C300B1E8F8 /* PlayfairDisplay-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Italic.ttf"; sourceTree = "<group>"; };
 		2354EAB727D9B2CC00B1E8F8 /* Colors+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extension.swift"; sourceTree = "<group>"; };
+		235F2E2527E4326700DA1615 /* HeroWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroWordView.swift; sourceTree = "<group>"; };
+		235F2E2727E4400A00DA1615 /* SymbolButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 		235F2E2327E4311900DA1615 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				235F2E2527E4326700DA1615 /* HeroWordView.swift */,
+				235F2E2727E4400A00DA1615 /* SymbolButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -195,8 +201,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				235F2E2627E4326700DA1615 /* HeroWordView.swift in Sources */,
 				2354EAA127D9AC5400B1E8F8 /* ViewController.swift in Sources */,
 				232898A227DFE9A8000789DB /* Word.swift in Sources */,
+				235F2E2827E4400A00DA1615 /* SymbolButton.swift in Sources */,
 				2354EA9D27D9AC5400B1E8F8 /* AppDelegate.swift in Sources */,
 				2354EA9F27D9AC5400B1E8F8 /* SceneDelegate.swift in Sources */,
 				232898A027DFD4B1000789DB /* UIView+Extension.swift in Sources */,
