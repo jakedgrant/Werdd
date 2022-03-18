@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,7 +29,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="gapWhite"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="mfx-rJ-VeY" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ALq-Qr-HnY"/>
                             <constraint firstItem="mfx-rJ-VeY" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="fqb-IY-Pai"/>
@@ -42,11 +42,11 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="backgroundColor">
+            <color red="1" green="0.98000001907348633" blue="0.93999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="gapNavy">
             <color red="0.15511999999999998" green="0.1512" blue="0.20999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="gapWhite">
-            <color red="1" green="0.97999999999999998" blue="0.93999999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

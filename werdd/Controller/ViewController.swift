@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 		let label = UILabel()
 		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 48)
 		label.text = "Werdd."
-		label.textColor = .gapNavy
+		label.textColor = .titleColor
 		return label
 	}()
 	
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
 	}()
 	
 	let randomWordButton: SymbolButton = {
-		let button = SymbolButton(systemName: "arrow.clockwise.circle", titleLabelText: "Random")
+		let button = SymbolButton(systemName: "arrow.clockwise.circle")
 		button.tintColor = .gapWhite
 		return button
 	}()
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
 	// MARK: - UI Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = .gapWhite
+		view.backgroundColor = .backgroundColor
 		
 		randomWordButton.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
 		
