@@ -20,6 +20,7 @@
 		2354EAB827D9B2CC00B1E8F8 /* Colors+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EAB727D9B2CC00B1E8F8 /* Colors+Extension.swift */; };
 		235F2E2627E4326700DA1615 /* HeroWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2527E4326700DA1615 /* HeroWordView.swift */; };
 		235F2E2827E4400A00DA1615 /* SymbolButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2727E4400A00DA1615 /* SymbolButton.swift */; };
+		235F2E2A27E515D700DA1615 /* RoundedUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2927E515D700DA1615 /* RoundedUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		2354EAB727D9B2CC00B1E8F8 /* Colors+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extension.swift"; sourceTree = "<group>"; };
 		235F2E2527E4326700DA1615 /* HeroWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroWordView.swift; sourceTree = "<group>"; };
 		235F2E2727E4400A00DA1615 /* SymbolButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolButton.swift; sourceTree = "<group>"; };
+		235F2E2927E515D700DA1615 /* RoundedUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				235F2E2527E4326700DA1615 /* HeroWordView.swift */,
+				235F2E2927E515D700DA1615 /* RoundedUIView.swift */,
 				235F2E2727E4400A00DA1615 /* SymbolButton.swift */,
 			);
 			path = View;
@@ -202,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				235F2E2627E4326700DA1615 /* HeroWordView.swift in Sources */,
+				235F2E2A27E515D700DA1615 /* RoundedUIView.swift in Sources */,
 				2354EAA127D9AC5400B1E8F8 /* ViewController.swift in Sources */,
 				232898A227DFE9A8000789DB /* Word.swift in Sources */,
 				235F2E2827E4400A00DA1615 /* SymbolButton.swift in Sources */,

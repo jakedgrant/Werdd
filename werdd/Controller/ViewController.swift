@@ -23,9 +23,8 @@ class ViewController: UIViewController {
 	}()
 	
 	let randomWordButton: SymbolButton = {
-		let button = SymbolButton(systemName: "arrow.clockwise.circle")		
+		let button = SymbolButton(systemName: "arrow.clockwise.circle", titleLabelText: "Random")
 		button.tintColor = .gapWhite
-		button.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
 		return button
 	}()
 	
@@ -50,15 +49,13 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		view.backgroundColor = .gapWhite
 		
+		randomWordButton.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
+		
 		getRandomWord()
 		addSubViews()
 	}
 
 	// MARK: - UI Setup
-	func updateWord() {
-		wordView.update(word: currentWord)
-	}
-	
 	func addSubViews() {
 		
 		view.addSubview(titleLabel)
@@ -84,7 +81,7 @@ class ViewController: UIViewController {
 	
 	@objc private func getRandomWord() {
 		currentWord = words.randomElement()!
-		updateWord()
+		wordView.update(word: currentWord)
 	}
 }
 

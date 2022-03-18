@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeroWordView: UIView {
+class HeroWordView: RoundedUIView {
 	// MARK: - Properties
 	var word: Word?
 	
@@ -68,10 +68,6 @@ class HeroWordView: UIView {
 	}
 	
 	// MARK: - UI Setup
-	override func layoutSubviews() {
-		layer.cornerRadius = 34
-	}
-	
 	private func setUpUI() {
 		
 		wordHStackView.addArrangedSubview(wordLabel)
