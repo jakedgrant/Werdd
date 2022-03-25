@@ -28,9 +28,12 @@ class ViewController: UIViewController {
 		return button
 	}()
 	
-	let wordTable: UITableView = {
-		let table = UITableView()
+	lazy var wordTable: RoundedTableView = {
+		let table = RoundedTableView()
 		table.backgroundColor = .gapRed
+		table.dataSource = self
+		table.delegate = self
+		table.register(UITableViewCell.self, forCellReuseIdentifier: "WordCell")
 		return table
 	}()
 	
@@ -54,9 +57,6 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .backgroundColor
-		
-		wordTable.dataSource = self
-		wordTable.delegate = self
 		
 		randomWordButton.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
 		
@@ -110,13 +110,15 @@ extension ViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "wordCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell") else {
+			return UITableViewCell()
+		}
+		
 		let word = words[indexPath.row]
 		
 		var content = cell.defaultContentConfiguration()
 		content.text = word.name
 		content.secondaryText = word.definition
-		
 		cell.contentConfiguration = content
 	
 		return cell
