@@ -38,8 +38,6 @@ class ViewController: UIViewController {
 	}()
 	
 	// MARK: - Properties
-	var currentWord = Word(name: ".", partOfSpeech: ".", definition: ".")
-	
 	var words: [Word] = [
 		Word(name: "onomatopaeia", partOfSpeech: "noun", definition: "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"),
 		Word(name: "penultimate", partOfSpeech: "adjective", definition: "last but one in a series of things; second last"),
@@ -97,8 +95,7 @@ class ViewController: UIViewController {
 	}
 	
 	@objc private func getRandomWord() {
-		currentWord = words.randomElement()!
-		wordView.update(word: currentWord)
+		wordView.update(word: words.randomElement()!)
 	}
 }
 
