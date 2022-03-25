@@ -6,7 +6,7 @@
 //
 
 struct Word {
-	let word: String
+	let name: String
 	let partOfSpeech: String
 	let definition: String
 }

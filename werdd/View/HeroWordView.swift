@@ -95,7 +95,7 @@ class HeroWordView: RoundedUIView {
 	// MARK: -
 	func update(word: Word) {
 		
-		wordLabel.text = word.word
+		wordLabel.text = word.name
 		partOfSpeechLabel.text = word.partOfSpeech
 		
 		// creating justified attributed string
