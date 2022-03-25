@@ -58,6 +58,8 @@ class ViewController: UIViewController {
 		
 		randomWordButton.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
 		
+		words.sort { $0.name < $1.name }
+		
 		getRandomWord()
 		addSubViews()
 	}
