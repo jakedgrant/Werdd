@@ -30,10 +30,13 @@ extension UIColor {
 	static let nauticalNavy = UIColor(hue: 215/360, saturation: 0.67, brightness: 0.34, alpha: 1)
 	
 	// https://coolors.co/palette/227c9d-17c3b2-ffcb77-fef9ef-fe6d73
-	static let gapNavy = UIColor(hue: 244/360, saturation: 0.28, brightness: 0.21, alpha: 1)
-	static let gapBlue = UIColor(hue: 196/360, saturation: 0.78, brightness: 0.62, alpha: 1)
-	static let gapGreen = UIColor(hue: 174/360, saturation: 0.88, brightness: 0.76, alpha: 1)
-	static let gapYellow = UIColor(hue: 37/360, saturation: 0.53, brightness: 1.0, alpha: 1)
-	static let gapWhite = UIColor(hue: 40/360, saturation: 0.06, brightness: 1.0, alpha: 1)
-	static let gapRed = UIColor(hue: 358/360, saturation: 0.57, brightness: 1.0, alpha: 1)
+	static let gapNavy = UIColor(named: "gapNavy")
+	static let gapBlue = UIColor(named: "gapBlue")
+	static let gapGreen = UIColor(named: "gapGreen")
+	static let gapYellow = UIColor(named: "gapYellow")
+	static let gapWhite = UIColor(named: "gapWhite")
+	static let gapRed = UIColor(named: "gapRed")
+	
+	static let backgroundColor = UIColor(named: "backgroundColor")
+	static let titleColor = UIColor(named: "titleColor")
 }
