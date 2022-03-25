@@ -39,4 +39,6 @@ extension UIColor {
 	
 	static let backgroundColor = UIColor(named: "backgroundColor")
 	static let titleColor = UIColor(named: "titleColor")
+	
+	static let gapLightYellow = UIColor(named: "gapLightYellow")
 }

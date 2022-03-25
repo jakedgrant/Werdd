@@ -30,7 +30,7 @@ class ViewController: UIViewController {
 	
 	lazy var wordTable: RoundedTableView = {
 		let table = RoundedTableView()
-		table.backgroundColor = .gapRed
+		table.backgroundColor = .gapLightYellow
 		table.dataSource = self
 		table.delegate = self
 		table.register(UITableViewCell.self, forCellReuseIdentifier: "WordCell")
@@ -38,8 +38,6 @@ class ViewController: UIViewController {
 	}()
 	
 	// MARK: - Properties
-	var currentWord = Word(name: ".", partOfSpeech: ".", definition: ".")
-	
 	var words: [Word] = [
 		Word(name: "onomatopaeia", partOfSpeech: "noun", definition: "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"),
 		Word(name: "penultimate", partOfSpeech: "adjective", definition: "last but one in a series of things; second last"),
@@ -70,7 +68,7 @@ class ViewController: UIViewController {
 		view.addSubview(titleLabel)
 		titleLabel.activate(constraints: [
 			titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40)
+			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
 		])
 		
 		view.addSubview(wordView)
@@ -97,8 +95,7 @@ class ViewController: UIViewController {
 	}
 	
 	@objc private func getRandomWord() {
-		currentWord = words.randomElement()!
-		wordView.update(word: currentWord)
+		wordView.update(word: words.randomElement()!)
 	}
 }
 
@@ -118,16 +115,18 @@ extension ViewController: UITableViewDataSource {
 		
 		var content = cell.defaultContentConfiguration()
 		
+		// Create attributed string for Word.name
 		let attributesName: [NSAttributedString.Key: Any] = [
-			.font: UIFont(name: "PlayfairDisplay-Regular", size: 18),
-			.foregroundColor: UIColor.gapNavy
+			.font: UIFont(name: "PlayfairDisplay-Regular", size: 18) ?? UIFont.systemFont(ofSize: 18),
+			.foregroundColor: UIColor.gapNavy ?? .black
 		]
 		let attributedWordName = NSAttributedString(string: word.name, attributes: attributesName)
 		content.attributedText = attributedWordName
 		
+		// Create attributed string for Word.definition
 		let attributesDefinition: [NSAttributedString.Key: Any] = [
-			.font: UIFont(name: "PlayfairDisplay-Regular", size: 12),
-			.foregroundColor: UIColor.gapNavy
+			.font: UIFont(name: "PlayfairDisplay-Regular", size: 12) ?? UIFont.systemFont(ofSize: 12),
+			.foregroundColor: UIColor.gapNavy ?? .black
 		]
 		let attributedWordDefinition = NSAttributedString(string: word.definition, attributes: attributesDefinition)
 		content.secondaryAttributedText = attributedWordDefinition
@@ -135,9 +134,21 @@ extension ViewController: UITableViewDataSource {
 		content.secondaryTextProperties.lineBreakMode = .byTruncatingTail
 		
 		cell.contentConfiguration = content
+		
+		// Set background of selected cell and deselected cells
+		let backgroundView = UIView()
+		backgroundView.backgroundColor = .gapYellow
+		cell.selectedBackgroundView = backgroundView
+		cell.backgroundColor = .clear
 	
 		return cell
 	}
 }
 
-extension ViewController: UITableViewDelegate { }
+extension ViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let selectedWord = words[indexPath.row]
+		
+		wordView.update(word: selectedWord)
+	}
+}
