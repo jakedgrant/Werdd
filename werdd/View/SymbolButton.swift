@@ -17,7 +17,7 @@ class SymbolButton: UIButton {
 		setUpUI()
 	}
 	
-	init(systemName: String, titleLabelText: String) {
+	init(systemName: String, titleLabelText: String?) {
 		self.systemName = systemName
 		super.init(frame: .zero)
 		

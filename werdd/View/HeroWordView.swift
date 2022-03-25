@@ -67,6 +67,10 @@ class HeroWordView: RoundedUIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	override func layoutSubviews() {
+		addGradientLayer(with: .gapBlue!, .gapGreen!)
+	}
+	
 	// MARK: - UI Setup
 	private func setUpUI() {
 		
