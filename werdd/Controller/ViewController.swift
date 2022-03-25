@@ -30,7 +30,7 @@ class ViewController: UIViewController {
 	
 	lazy var wordTable: RoundedTableView = {
 		let table = RoundedTableView()
-		table.backgroundColor = .gapRed
+		table.backgroundColor = .gapLightYellow
 		table.dataSource = self
 		table.delegate = self
 		table.register(UITableViewCell.self, forCellReuseIdentifier: "WordCell")
@@ -117,16 +117,16 @@ extension ViewController: UITableViewDataSource {
 		
 		// Create attributed string for Word.name
 		let attributesName: [NSAttributedString.Key: Any] = [
-			.font: UIFont(name: "PlayfairDisplay-Regular", size: 18),
-			.foregroundColor: UIColor.gapNavy
+			.font: UIFont(name: "PlayfairDisplay-Regular", size: 18) ?? UIFont.systemFont(ofSize: 18),
+			.foregroundColor: UIColor.gapNavy ?? .black
 		]
 		let attributedWordName = NSAttributedString(string: word.name, attributes: attributesName)
 		content.attributedText = attributedWordName
 		
 		// Create attributed string for Word.definition
 		let attributesDefinition: [NSAttributedString.Key: Any] = [
-			.font: UIFont(name: "PlayfairDisplay-Regular", size: 12),
-			.foregroundColor: UIColor.gapNavy
+			.font: UIFont(name: "PlayfairDisplay-Regular", size: 12) ?? UIFont.systemFont(ofSize: 12),
+			.foregroundColor: UIColor.gapNavy ?? .black
 		]
 		let attributedWordDefinition = NSAttributedString(string: word.definition, attributes: attributesDefinition)
 		content.secondaryAttributedText = attributedWordDefinition
@@ -134,6 +134,12 @@ extension ViewController: UITableViewDataSource {
 		content.secondaryTextProperties.lineBreakMode = .byTruncatingTail
 		
 		cell.contentConfiguration = content
+		
+		// Set background of selected cell and deselected cells
+		let backgroundView = UIView()
+		backgroundView.backgroundColor = .gapYellow
+		cell.selectedBackgroundView = backgroundView
+		cell.backgroundColor = .clear
 	
 		return cell
 	}
