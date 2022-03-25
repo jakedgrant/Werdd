@@ -115,6 +115,7 @@ extension ViewController: UITableViewDataSource {
 		
 		var content = cell.defaultContentConfiguration()
 		
+		// Create attributed string for Word.name
 		let attributesName: [NSAttributedString.Key: Any] = [
 			.font: UIFont(name: "PlayfairDisplay-Regular", size: 18),
 			.foregroundColor: UIColor.gapNavy
@@ -122,6 +123,7 @@ extension ViewController: UITableViewDataSource {
 		let attributedWordName = NSAttributedString(string: word.name, attributes: attributesName)
 		content.attributedText = attributedWordName
 		
+		// Create attributed string for Word.definition
 		let attributesDefinition: [NSAttributedString.Key: Any] = [
 			.font: UIFont(name: "PlayfairDisplay-Regular", size: 12),
 			.foregroundColor: UIColor.gapNavy
@@ -137,4 +139,10 @@ extension ViewController: UITableViewDataSource {
 	}
 }
 
-extension ViewController: UITableViewDelegate { }
+extension ViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let selectedWord = words[indexPath.row]
+		
+		wordView.update(word: selectedWord)
+	}
+}
