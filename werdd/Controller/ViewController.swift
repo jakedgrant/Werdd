@@ -117,8 +117,23 @@ extension ViewController: UITableViewDataSource {
 		let word = words[indexPath.row]
 		
 		var content = cell.defaultContentConfiguration()
-		content.text = word.name
-		content.secondaryText = word.definition
+		
+		let attributesName: [NSAttributedString.Key: Any] = [
+			.font: UIFont(name: "PlayfairDisplay-Regular", size: 18),
+			.foregroundColor: UIColor.gapNavy
+		]
+		let attributedWordName = NSAttributedString(string: word.name, attributes: attributesName)
+		content.attributedText = attributedWordName
+		
+		let attributesDefinition: [NSAttributedString.Key: Any] = [
+			.font: UIFont(name: "PlayfairDisplay-Regular", size: 12),
+			.foregroundColor: UIColor.gapNavy
+		]
+		let attributedWordDefinition = NSAttributedString(string: word.definition, attributes: attributesDefinition)
+		content.secondaryAttributedText = attributedWordDefinition
+		content.secondaryTextProperties.numberOfLines = 1
+		content.secondaryTextProperties.lineBreakMode = .byTruncatingTail
+		
 		cell.contentConfiguration = content
 	
 		return cell
