@@ -11,7 +11,7 @@ class ViewController: UIViewController {
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 48)
+		label.font = .playfairDisplayFont(.bold, size: 48)
 		label.text = "Werdd."
 		label.textColor = .titleColor
 		return label
@@ -121,7 +121,7 @@ extension ViewController: UITableViewDataSource {
 		
 		// Create attributed string for Word.name
 		let attributesName: [NSAttributedString.Key: Any] = [
-			.font: UIFont(name: "PlayfairDisplay-Regular", size: 18) ?? UIFont.systemFont(ofSize: 18),
+			.font: UIFont.playfairDisplayFont(.regular, size: 18),
 			.foregroundColor: UIColor.gapNavy ?? .black
 		]
 		let attributedWordName = NSAttributedString(string: word.name, attributes: attributesName)
@@ -129,7 +129,7 @@ extension ViewController: UITableViewDataSource {
 		
 		// Create attributed string for Word.definition
 		let attributesDefinition: [NSAttributedString.Key: Any] = [
-			.font: UIFont(name: "PlayfairDisplay-Regular", size: 12) ?? UIFont.systemFont(ofSize: 12),
+			.font: UIFont.playfairDisplayFont(.regular, size: 12),
 			.foregroundColor: UIColor.gapNavy ?? .black
 		]
 		let attributedWordDefinition = NSAttributedString(string: word.definition, attributes: attributesDefinition)

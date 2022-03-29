@@ -33,21 +33,21 @@ class HeroWordView: RoundedUIView {
 	
 	private let wordLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
+		label.font = .playfairDisplayFont(.bold, size: 24)
 		label.textColor = .gapNavy
 		return label
 	}()
 	
 	private let partOfSpeechLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Italic", size: 16)
+		label.font = .playfairDisplayFont(.italic, size: 16)
 		label.textColor = .gapNavy
 		return label
 	}()
 	
 	private let definitionLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Regular", size: 18)
+		label.font = .playfairDisplayFont(.regular, size: 18)
 		
 		label.textColor = .gapNavy
 		label.lineBreakMode = .byWordWrapping
