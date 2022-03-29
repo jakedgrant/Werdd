@@ -22,6 +22,7 @@ class ViewController: UIViewController {
 		return view
 	}()
 	
+	// TODO: Move to Hero view and use either delegate or closure pattern for button action
 	let randomWordButton: SymbolButton = {
 		let button = SymbolButton(systemName: "arrow.clockwise.circle")
 		button.tintColor = .gapWhite
@@ -96,12 +97,13 @@ class ViewController: UIViewController {
 		])
 	}
 	
+	// MARK: - Actions
 	@objc private func getRandomWord() {
 		wordView.update(word: words.randomElement()!)
 	}
 }
 
-
+// MARK: - UITableViewDataSource
 extension ViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		words.count
@@ -147,6 +149,7 @@ extension ViewController: UITableViewDataSource {
 	}
 }
 
+// MARK: - UITableViewDelegate
 extension ViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedWord = words[indexPath.row]

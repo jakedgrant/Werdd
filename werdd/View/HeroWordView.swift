@@ -55,10 +55,16 @@ class HeroWordView: RoundedUIView {
 		return label
 	}()
 	
+	var gradient: CAGradientLayer = {
+		let gradientLayer = CAGradientLayer()
+		gradientLayer.colors = [UIColor.gapBlue!.cgColor, UIColor.gapGreen!.cgColor]
+		
+		return gradientLayer
+	}()
+	
 	// MARK: - Initializers
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = .gapBlue
 		
 		setUpUI()
 	}
@@ -67,8 +73,19 @@ class HeroWordView: RoundedUIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	// MARK: - View Lifecycle
 	override func layoutSubviews() {
-		addGradientLayer(with: .gapBlue!, .gapGreen!)
+		super.layoutSubviews()
+		
+		// create layer in this view and adjust the gradient layer frame when the View gets laid out
+		gradient.frame = bounds
+		gradient.cornerRadius = layer.cornerRadius
+
+		if let sublayers = layer.sublayers {
+			if !sublayers.contains(gradient) {
+				layer.insertSublayer(gradient, at: 0)
+			}
+		}
 	}
 	
 	// MARK: - UI Setup
@@ -92,7 +109,7 @@ class HeroWordView: RoundedUIView {
 		])
 	}
 	
-	// MARK: -
+	// MARK: - Actions
 	func update(word: Word) {
 		
 		wordLabel.text = word.name
