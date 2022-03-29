@@ -122,7 +122,7 @@ extension ViewController: UITableViewDataSource {
 		// Create attributed string for Word.name
 		let attributesName: [NSAttributedString.Key: Any] = [
 			.font: UIFont.playfairDisplayFont(.regular, size: 18),
-			.foregroundColor: UIColor.gapNavy ?? .black
+			.foregroundColor: UIColor.gapNavy
 		]
 		let attributedWordName = NSAttributedString(string: word.name, attributes: attributesName)
 		content.attributedText = attributedWordName
@@ -130,7 +130,7 @@ extension ViewController: UITableViewDataSource {
 		// Create attributed string for Word.definition
 		let attributesDefinition: [NSAttributedString.Key: Any] = [
 			.font: UIFont.playfairDisplayFont(.regular, size: 12),
-			.foregroundColor: UIColor.gapNavy ?? .black
+			.foregroundColor: UIColor.gapNavy
 		]
 		let attributedWordDefinition = NSAttributedString(string: word.definition, attributes: attributesDefinition)
 		content.secondaryAttributedText = attributedWordDefinition

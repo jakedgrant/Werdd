@@ -57,7 +57,7 @@ class HeroWordView: RoundedUIView {
 	
 	var gradient: CAGradientLayer = {
 		let gradientLayer = CAGradientLayer()
-		gradientLayer.colors = [UIColor.gapBlue!.cgColor, UIColor.gapGreen!.cgColor]
+		gradientLayer.colors = [UIColor.gapBlue.cgColor, UIColor.gapGreen.cgColor]
 		
 		return gradientLayer
 	}()
