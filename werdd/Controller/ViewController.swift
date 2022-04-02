@@ -8,8 +8,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-	//
-	private let wordCellIdentifier = "WordCell"
 	
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
@@ -37,7 +35,8 @@ class ViewController: UIViewController {
 		table.backgroundColor = .gapLightYellow
 		table.dataSource = self
 		table.delegate = self
-		table.register(UITableViewCell.self, forCellReuseIdentifier: wordCellIdentifier)
+		table.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.wordCellIdentifier)
+		table.separatorStyle = .none
 		return table
 	}()
 	
@@ -114,39 +113,12 @@ extension ViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: wordCellIdentifier) else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.wordCellIdentifier, for: indexPath) as? WordTableViewCell else {
 			return UITableViewCell()
 		}
 		
 		let word = words[indexPath.row]
-		
-		var content = cell.defaultContentConfiguration()
-		
-		// Create attributed string for Word.name
-		let attributesName: [NSAttributedString.Key: Any] = [
-			.font: UIFont.playfairDisplayFont(.regular, size: 18),
-			.foregroundColor: UIColor.gapNavy
-		]
-		let attributedWordName = NSAttributedString(string: word.name, attributes: attributesName)
-		content.attributedText = attributedWordName
-		
-		// Create attributed string for Word.definition
-		let attributesDefinition: [NSAttributedString.Key: Any] = [
-			.font: UIFont.playfairDisplayFont(.regular, size: 12),
-			.foregroundColor: UIColor.gapNavy
-		]
-		let attributedWordDefinition = NSAttributedString(string: word.definition, attributes: attributesDefinition)
-		content.secondaryAttributedText = attributedWordDefinition
-		content.secondaryTextProperties.numberOfLines = 1
-		content.secondaryTextProperties.lineBreakMode = .byTruncatingTail
-		
-		cell.contentConfiguration = content
-		
-		// Set background of selected cell and deselected cells
-		let backgroundView = UIView()
-		backgroundView.backgroundColor = .gapYellow
-		cell.selectedBackgroundView = backgroundView
-		cell.backgroundColor = .clear
+		cell.update(word: word)
 	
 		return cell
 	}
@@ -158,5 +130,7 @@ extension ViewController: UITableViewDelegate {
 		let selectedWord = words[indexPath.row]
 		
 		wordView.update(word: selectedWord)
+		
+		
 	}
 }
