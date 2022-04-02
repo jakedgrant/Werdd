@@ -33,21 +33,21 @@ class HeroWordView: RoundedUIView {
 	
 	private let wordLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
+		label.font = .playfairDisplayFont(.bold, size: 24)
 		label.textColor = .gapNavy
 		return label
 	}()
 	
 	private let partOfSpeechLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Italic", size: 16)
+		label.font = .playfairDisplayFont(.italic, size: 16)
 		label.textColor = .gapNavy
 		return label
 	}()
 	
 	private let definitionLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont(name: "PlayfairDisplay-Regular", size: 18)
+		label.font = .playfairDisplayFont(.regular, size: 18)
 		
 		label.textColor = .gapNavy
 		label.lineBreakMode = .byWordWrapping
@@ -55,10 +55,16 @@ class HeroWordView: RoundedUIView {
 		return label
 	}()
 	
+	var gradient: CAGradientLayer = {
+		let gradientLayer = CAGradientLayer()
+		gradientLayer.colors = [UIColor.gapBlue.cgColor, UIColor.gapGreen.cgColor]
+		
+		return gradientLayer
+	}()
+	
 	// MARK: - Initializers
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = .gapBlue
 		
 		setUpUI()
 	}
@@ -67,8 +73,19 @@ class HeroWordView: RoundedUIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	// MARK: - View Lifecycle
 	override func layoutSubviews() {
-		addGradientLayer(with: .gapBlue!, .gapGreen!)
+		super.layoutSubviews()
+		
+		// create layer in this view and adjust the gradient layer frame when the View gets laid out
+		gradient.frame = bounds
+		gradient.cornerRadius = layer.cornerRadius
+
+		if let sublayers = layer.sublayers {
+			if !sublayers.contains(gradient) {
+				layer.insertSublayer(gradient, at: 0)
+			}
+		}
 	}
 	
 	// MARK: - UI Setup
@@ -92,10 +109,10 @@ class HeroWordView: RoundedUIView {
 		])
 	}
 	
-	// MARK: -
+	// MARK: - Actions
 	func update(word: Word) {
 		
-		wordLabel.text = word.word
+		wordLabel.text = word.name
 		partOfSpeechLabel.text = word.partOfSpeech
 		
 		// creating justified attributed string
