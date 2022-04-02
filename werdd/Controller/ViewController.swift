@@ -8,6 +8,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+	//
+	private let wordCellIdentifier = "WordCell"
+	
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
 		let label = UILabel()
@@ -34,7 +37,7 @@ class ViewController: UIViewController {
 		table.backgroundColor = .gapLightYellow
 		table.dataSource = self
 		table.delegate = self
-		table.register(UITableViewCell.self, forCellReuseIdentifier: "WordCell")
+		table.register(UITableViewCell.self, forCellReuseIdentifier: wordCellIdentifier)
 		return table
 	}()
 	
@@ -111,7 +114,7 @@ extension ViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell") else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: wordCellIdentifier) else {
 			return UITableViewCell()
 		}
 		
