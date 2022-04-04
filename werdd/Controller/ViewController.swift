@@ -23,9 +23,8 @@ class ViewController: UIViewController {
 		return view
 	}()
 	
-	// TODO: Move to Hero view and use either delegate or closure pattern for button action
-	let randomWordButton: SymbolButton = {
-		let button = SymbolButton(systemName: "arrow.clockwise.circle")
+	lazy var randomWordButton: SymbolButton = {
+		let button = SymbolButton(systemName: "arrow.clockwise.circle", buttonAction: getRandomWord)
 		button.tintColor = .gapWhite
 		return button
 	}()
@@ -58,9 +57,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .backgroundColor
-		
-		randomWordButton.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
-		
+
 		words.sort { $0.name < $1.name }
 		
 		getRandomWord()
@@ -68,7 +65,7 @@ class ViewController: UIViewController {
 	}
 
 	// MARK: - UI Setup
-	func addSubViews() {
+	private func addSubViews() {
 		
 		view.addSubview(titleLabel)
 		titleLabel.activate(constraints: [
@@ -100,8 +97,8 @@ class ViewController: UIViewController {
 	}
 	
 	// MARK: - Actions
-	@objc private func getRandomWord() {
-		wordView.update(word: words.randomElement()!)
+	private func getRandomWord() {
+		self.wordView.update(word: self.words.randomElement()!)
 	}
 }
 
