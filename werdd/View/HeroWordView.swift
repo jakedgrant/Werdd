@@ -116,7 +116,7 @@ class HeroWordView: UIView, RoundableView {
 	func update(word: Word) {
 		
 		wordLabel.text = word.name
-		partOfSpeechLabel.text = word.partOfSpeech
+		partOfSpeechLabel.text = word.partOfSpeech.rawValue
 		
 		// creating justified attributed string
 		let definition = word.definition

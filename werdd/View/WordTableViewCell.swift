@@ -116,7 +116,7 @@ class WordTableViewCell: UITableViewCell {
 	
 	func update(word: Word) {
 		wordLabel.text = word.name
-		partOfSpeechLabel.text = word.partOfSpeech
+		partOfSpeechLabel.text = word.partOfSpeech.rawValue
 		definitionLabel.text = word.definition
 	}
 	
