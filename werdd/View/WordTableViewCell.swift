@@ -38,8 +38,8 @@ class WordTableViewCell: UITableViewCell {
 		let label = UILabel()
 		label.font = .playfairDisplayFont(.regular, size: 14)
 		label.textColor = .gapNavy
-		label.lineBreakMode = .byClipping
-		label.numberOfLines = 0
+		label.lineBreakMode = .byTruncatingTail
+		label.numberOfLines = 1
 		return label
 	}()
 	
@@ -76,10 +76,10 @@ class WordTableViewCell: UITableViewCell {
 		contentView.addSubview(cardView)
 		
 		cardView.activate(constraints: [
-			cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+			cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
 			cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 			cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-			cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+			cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
 		])
 		
 		wordHStack.activate(constraints: [
@@ -98,17 +98,6 @@ class WordTableViewCell: UITableViewCell {
 	func update(word: Word) {
 		wordLabel.text = word.name
 		partOfSpeechLabel.text = word.partOfSpeech
-		
-		// creating justified attributed string
-		let definition = word.definition
-		let justifiedStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-		justifiedStyle.alignment = .justified
-		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
-		let justifiedString = NSAttributedString.init(string: definition, attributes: attributes)
-
-		definitionLabel.attributedText = justifiedString
-		
 		definitionLabel.text = word.definition
 	}
-	
 }

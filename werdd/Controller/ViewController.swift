@@ -81,7 +81,7 @@ class ViewController: UIViewController {
 			wordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			wordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 			wordView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-			wordView.heightAnchor.constraint(equalToConstant: 240)
+			wordView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
 		])
 		
 		view.addSubview(randomWordButton)
