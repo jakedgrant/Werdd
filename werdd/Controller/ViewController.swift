@@ -116,7 +116,5 @@ extension ViewController: UITableViewDelegate {
 		let selectedWord = words[indexPath.row]
 		
 		wordView.update(word: selectedWord)
-		
-		
 	}
 }

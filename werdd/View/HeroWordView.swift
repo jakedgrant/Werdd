@@ -7,7 +7,9 @@
 
 import UIKit
 
-class HeroWordView: RoundedUIView {
+class HeroWordView: UIView, RoundableView {
+	var cornerRadius: CGFloat = 34.0	
+	
 	// MARK: - Properties
 	var word: Word?
 	
@@ -66,6 +68,7 @@ class HeroWordView: RoundedUIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
+		makeCornersRounded()
 		setUpUI()
 	}
 
