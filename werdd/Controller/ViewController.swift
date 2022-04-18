@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 		view.addSubview(titleLabel)
 		titleLabel.activate(constraints: [
 			titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
+			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -14)
 		])
 		
 		view.addSubview(wordView)
