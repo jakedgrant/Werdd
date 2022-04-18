@@ -24,7 +24,16 @@ class ViewController: UIViewController {
 	}()
 	
 	lazy var randomWordButton: SymbolButton = {
-		let button = SymbolButton(systemName: "arrow.clockwise.circle", buttonAction: getRandomWord)
+		let button = SymbolButton(
+			systemName: "arrow.clockwise.circle",
+			withAction: getRandomWord)
+		button.animation = {
+			let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+			   rotation.toValue = NSNumber(value: Double.pi * 2)
+			   rotation.duration = 0.3
+			   
+			button.layer.add(rotation, forKey: "rotationAnimation")
+		   }
 		button.tintColor = .gapWhite
 		return button
 	}()

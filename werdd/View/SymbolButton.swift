@@ -11,11 +11,14 @@ class SymbolButton: UIButton {
 	var systemName: String
 	var titleText: String?
 	var buttonAction: (() -> Void)?
+	var animation: (() -> Void)?
 	
-	init(systemName: String, titleText: String? = nil, buttonAction: (() -> Void)?) {
+	init(systemName: String,
+		 titleText: String? = nil,
+		 withAction action: (() -> Void)?) {
 		self.systemName = systemName
 		self.titleText = titleText
-		self.buttonAction = buttonAction
+		self.buttonAction = action
 		super.init(frame: .zero)
 		
 		self.setTitle(titleText, for: .normal)
@@ -37,6 +40,6 @@ class SymbolButton: UIButton {
 	
 	@objc func buttonPressed() {
 		buttonAction?()
-		print("button pressed")
+		animation?()
 	}
 }

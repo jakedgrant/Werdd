@@ -57,7 +57,7 @@ class HeroWordView: UIView, RoundableView {
 		return label
 	}()
 	
-	var gradient: CAGradientLayer = {
+	private var gradient: CAGradientLayer = {
 		let gradientLayer = CAGradientLayer()
 		gradientLayer.colors = [UIColor.gapBlue.cgColor, UIColor.gapGreen.cgColor]
 		
@@ -115,7 +115,10 @@ class HeroWordView: UIView, RoundableView {
 	// MARK: - Actions
 	func update(word: Word) {
 		
+//		wordLabel.fadeTransition(0.3)
 		wordLabel.text = word.name
+		
+//		partOfSpeechLabel.fadeTransition(0.3)
 		partOfSpeechLabel.text = word.partOfSpeech.rawValue
 		
 		// creating justified attributed string
@@ -125,6 +128,9 @@ class HeroWordView: UIView, RoundableView {
 		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
 		let justifiedString = NSAttributedString.init(string: definition, attributes: attributes)
 		
+//		definitionLabel.fadeTransition(0.3)
 		definitionLabel.attributedText = justifiedString
+		
+		self.fadeTransition(0.3)
 	}
 }
