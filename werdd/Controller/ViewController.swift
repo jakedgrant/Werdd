@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+	//
+	private let wordCellIdentifier = "WordCell"
 	
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
@@ -23,17 +25,9 @@ class ViewController: UIViewController {
 		return view
 	}()
 	
-	lazy var randomWordButton: SymbolButton = {
-		let button = SymbolButton(
-			systemName: "arrow.clockwise.circle",
-			withAction: getRandomWord)
-		button.animation = {
-			let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-			   rotation.toValue = NSNumber(value: Double.pi * 2)
-			   rotation.duration = 0.3
-			   
-			button.layer.add(rotation, forKey: "rotationAnimation")
-		   }
+	// TODO: Move to Hero view and use either delegate or closure pattern for button action
+	let randomWordButton: SymbolButton = {
+		let button = SymbolButton(systemName: "arrow.clockwise.circle")
 		button.tintColor = .gapWhite
 		return button
 	}()
@@ -43,19 +37,31 @@ class ViewController: UIViewController {
 		table.backgroundColor = .gapLightYellow
 		table.dataSource = self
 		table.delegate = self
-		table.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.wordCellIdentifier)
-		table.separatorStyle = .none
+		table.register(UITableViewCell.self, forCellReuseIdentifier: wordCellIdentifier)
 		return table
 	}()
 	
 	// MARK: - Properties
-	var words = Words().words
+	var words: [Word] = [
+		Word(name: "onomatopaeia", partOfSpeech: "noun", definition: "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"),
+		Word(name: "penultimate", partOfSpeech: "adjective", definition: "last but one in a series of things; second last"),
+		Word(name: "defenestrate", partOfSpeech: "verb", definition: "throw (someone) out of a window"),
+		Word(name: "switch", partOfSpeech: "verb", definition: "change the position, direction, or focus of"),
+		Word(name: "pontificate", partOfSpeech: "verb", definition: "express one's opinions in a way considered annoyingly pompous and dogmatic"),
+		Word(name: "detergent", partOfSpeech: "noun", definition: "a water-soluble cleansing agent which combines with impurities and dirt to make them more soluble, and differs from soap in not forming a scum with the salts in hard water"),
+		Word(name: "bacon", partOfSpeech: "noun", definition: "cured meat from the sides and belly of a pig, having distinct strips of fat and typically served in thin slices"),
+		Word(name: "jambalaya", partOfSpeech: "noun", definition: "a Cajun dish of rice with shrimp, chicken, and vegetables"),
+		Word(name: "diode", partOfSpeech: "noun", definition: "a semiconductor device with two terminals, typically allowing the flow of current in one direction only"),
+		Word(name: "algorithm", partOfSpeech: "noun", definition: "a process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer")
+	]
 
 	// MARK: - UI Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .backgroundColor
-
+		
+		randomWordButton.addTarget(self, action: #selector(getRandomWord), for: .touchUpInside)
+		
 		words.sort { $0.name < $1.name }
 		
 		getRandomWord()
@@ -63,7 +69,7 @@ class ViewController: UIViewController {
 	}
 
 	// MARK: - UI Setup
-	private func addSubViews() {
+	func addSubViews() {
 		
 		view.addSubview(titleLabel)
 		titleLabel.activate(constraints: [
@@ -76,7 +82,7 @@ class ViewController: UIViewController {
 			wordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			wordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 			wordView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-			wordView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+			wordView.heightAnchor.constraint(equalToConstant: 240)
 		])
 		
 		view.addSubview(randomWordButton)
@@ -95,8 +101,8 @@ class ViewController: UIViewController {
 	}
 	
 	// MARK: - Actions
-	private func getRandomWord() {
-		self.wordView.update(word: self.words.randomElement()!)
+	@objc private func getRandomWord() {
+		wordView.update(word: words.randomElement()!)
 	}
 }
 
@@ -108,12 +114,39 @@ extension ViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.wordCellIdentifier, for: indexPath) as? WordTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: wordCellIdentifier) else {
 			return UITableViewCell()
 		}
 		
 		let word = words[indexPath.row]
-		cell.update(word: word)
+		
+		var content = cell.defaultContentConfiguration()
+		
+		// Create attributed string for Word.name
+		let attributesName: [NSAttributedString.Key: Any] = [
+			.font: UIFont.playfairDisplayFont(.regular, size: 18),
+			.foregroundColor: UIColor.gapNavy
+		]
+		let attributedWordName = NSAttributedString(string: word.name, attributes: attributesName)
+		content.attributedText = attributedWordName
+		
+		// Create attributed string for Word.definition
+		let attributesDefinition: [NSAttributedString.Key: Any] = [
+			.font: UIFont.playfairDisplayFont(.regular, size: 12),
+			.foregroundColor: UIColor.gapNavy
+		]
+		let attributedWordDefinition = NSAttributedString(string: word.definition, attributes: attributesDefinition)
+		content.secondaryAttributedText = attributedWordDefinition
+		content.secondaryTextProperties.numberOfLines = 1
+		content.secondaryTextProperties.lineBreakMode = .byTruncatingTail
+		
+		cell.contentConfiguration = content
+		
+		// Set background of selected cell and deselected cells
+		let backgroundView = UIView()
+		backgroundView.backgroundColor = .gapYellow
+		cell.selectedBackgroundView = backgroundView
+		cell.backgroundColor = .clear
 	
 		return cell
 	}

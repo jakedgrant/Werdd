@@ -9,22 +9,27 @@ import UIKit
 
 class SymbolButton: UIButton {
 	var systemName: String
-	var titleText: String?
-	var buttonAction: (() -> Void)?
-	var animation: (() -> Void)?
-	
-	init(systemName: String,
-		 titleText: String? = nil,
-		 withAction action: (() -> Void)?) {
+
+	init(systemName: String) {
 		self.systemName = systemName
-		self.titleText = titleText
-		self.buttonAction = action
 		super.init(frame: .zero)
 		
-		self.setTitle(titleText, for: .normal)
 		setUpUI()
+	}
+	
+	init(systemName: String, titleLabelText: String?) {
+		self.systemName = systemName
+		super.init(frame: .zero)
 		
-		addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+		self.setTitle(titleLabelText, for: .normal)
+		setUpUI()
+	}
+	
+	override init(frame: CGRect) {
+		self.systemName = ""
+		super.init(frame: frame)
+		
+		setUpUI()
 	}
 	
 	required init?(coder: NSCoder) {
@@ -36,10 +41,5 @@ class SymbolButton: UIButton {
 		let symbolConfig = UIImage.SymbolConfiguration(pointSize: 30)
 		let buttonImage = UIImage(systemName: systemName, withConfiguration: symbolConfig)
 		setImage(buttonImage, for: .normal)
-	}
-	
-	@objc func buttonPressed() {
-		buttonAction?()
-		animation?()
 	}
 }
