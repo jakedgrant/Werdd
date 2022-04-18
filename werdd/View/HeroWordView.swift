@@ -7,7 +7,9 @@
 
 import UIKit
 
-class HeroWordView: RoundedUIView {
+class HeroWordView: UIView, RoundableView {
+	var cornerRadius: CGFloat = 34.0	
+	
 	// MARK: - Properties
 	var word: Word?
 	
@@ -55,7 +57,7 @@ class HeroWordView: RoundedUIView {
 		return label
 	}()
 	
-	var gradient: CAGradientLayer = {
+	private var gradient: CAGradientLayer = {
 		let gradientLayer = CAGradientLayer()
 		gradientLayer.colors = [UIColor.gapBlue.cgColor, UIColor.gapGreen.cgColor]
 		
@@ -66,6 +68,7 @@ class HeroWordView: RoundedUIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
+		makeCornersRounded()
 		setUpUI()
 	}
 
@@ -112,8 +115,11 @@ class HeroWordView: RoundedUIView {
 	// MARK: - Actions
 	func update(word: Word) {
 		
+//		wordLabel.fadeTransition(0.3)
 		wordLabel.text = word.name
-		partOfSpeechLabel.text = word.partOfSpeech
+		
+//		partOfSpeechLabel.fadeTransition(0.3)
+		partOfSpeechLabel.text = word.partOfSpeech.rawValue
 		
 		// creating justified attributed string
 		let definition = word.definition
@@ -122,6 +128,9 @@ class HeroWordView: RoundedUIView {
 		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
 		let justifiedString = NSAttributedString.init(string: definition, attributes: attributes)
 		
+//		definitionLabel.fadeTransition(0.3)
 		definitionLabel.attributedText = justifiedString
+		
+		self.fadeTransition(0.3)
 	}
 }

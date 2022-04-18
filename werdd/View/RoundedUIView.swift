@@ -7,17 +7,30 @@
 
 import UIKit
 
-class RoundedUIView: UIView {
-	let cornerRadius = 34.0
+class RoundedUIView: UIView, RoundableView{
+	var cornerRadius: CGFloat = 34.0
 
 	// MARK: - Initializers
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		layer.cornerRadius = self.cornerRadius
+		
+		makeCornersRounded()
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+}
+
+protocol RoundableView: AnyObject {
+	var cornerRadius: CGFloat { get set }
+	func makeCornersRounded()
+}
+
+extension RoundableView where Self: UIView {	
+	func makeCornersRounded() {
+		layer.cornerRadius = cornerRadius
+		layer.masksToBounds = true
+	}
 }

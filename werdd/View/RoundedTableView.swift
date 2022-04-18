@@ -7,13 +7,13 @@
 
 import UIKit
 
-class RoundedTableView: UITableView {
-	let cornerRadius = 34.0
+class RoundedTableView: UITableView, RoundableView {
+	var cornerRadius: CGFloat = 34.0
 	
 	// MARK: - Initializers
 	override init(frame: CGRect, style: UITableView.Style) {
 		super.init(frame: frame, style: style)
-		layer.cornerRadius = self.cornerRadius
+		makeCornersRounded()
 		// only apply corner radius to top-left and top-right corners
 		layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 	}
