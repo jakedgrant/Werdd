@@ -15,6 +15,13 @@ struct Word {
 	}
 }
 
+public enum WordInfoType: String {
+	case definition = "Definition"
+	case synonym = "Synonym"
+	case antonym = "Antonym"
+	case example = "Example"
+}
+
 class Words {
 	let words: [Word] = [
 		Word(name: "onomatopaeia",

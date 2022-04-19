@@ -11,7 +11,7 @@
 		232898A227DFE9A8000789DB /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232898A127DFE9A8000789DB /* Word.swift */; };
 		2354EA9D27D9AC5400B1E8F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EA9C27D9AC5400B1E8F8 /* AppDelegate.swift */; };
 		2354EA9F27D9AC5400B1E8F8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EA9E27D9AC5400B1E8F8 /* SceneDelegate.swift */; };
-		2354EAA127D9AC5400B1E8F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EAA027D9AC5400B1E8F8 /* ViewController.swift */; };
+		2354EAA127D9AC5400B1E8F8 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2354EAA027D9AC5400B1E8F8 /* InitialViewController.swift */; };
 		2354EAA627D9AC5500B1E8F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2354EAA527D9AC5500B1E8F8 /* Assets.xcassets */; };
 		2354EAA927D9AC5500B1E8F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2354EAA727D9AC5500B1E8F8 /* LaunchScreen.storyboard */; };
 		2354EAB127D9B0AA00B1E8F8 /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2354EAB027D9B0AA00B1E8F8 /* PlayfairDisplay-Regular.ttf */; };
@@ -22,6 +22,8 @@
 		235F2E2827E4400A00DA1615 /* SymbolButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2727E4400A00DA1615 /* SymbolButton.swift */; };
 		235F2E2A27E515D700DA1615 /* RoundedUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2927E515D700DA1615 /* RoundedUIView.swift */; };
 		2388CB6927F7FB7A006079CD /* WordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2388CB6827F7FB7A006079CD /* WordTableViewCell.swift */; };
+		23CE0242280D26D700537FDD /* WordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0241280D26D700537FDD /* WordDetailViewController.swift */; };
+		23CE0244280D297300537FDD /* WordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0243280D297300537FDD /* WordDetailView.swift */; };
 		23E3458727ED68F60017885F /* RoundedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E3458627ED68F60017885F /* RoundedTableView.swift */; };
 		23E3458927F2BD1F0017885F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E3458827F2BD1F0017885F /* UIFont+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -32,7 +34,7 @@
 		2354EA9927D9AC5400B1E8F8 /* werdd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = werdd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2354EA9C27D9AC5400B1E8F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2354EA9E27D9AC5400B1E8F8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2354EAA027D9AC5400B1E8F8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2354EAA027D9AC5400B1E8F8 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		2354EAA527D9AC5500B1E8F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2354EAA827D9AC5500B1E8F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2354EAAA27D9AC5500B1E8F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,6 +46,8 @@
 		235F2E2727E4400A00DA1615 /* SymbolButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolButton.swift; sourceTree = "<group>"; };
 		235F2E2927E515D700DA1615 /* RoundedUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUIView.swift; sourceTree = "<group>"; };
 		2388CB6827F7FB7A006079CD /* WordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTableViewCell.swift; sourceTree = "<group>"; };
+		23CE0241280D26D700537FDD /* WordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailViewController.swift; sourceTree = "<group>"; };
+		23CE0243280D297300537FDD /* WordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailView.swift; sourceTree = "<group>"; };
 		23E3458627ED68F60017885F /* RoundedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTableView.swift; sourceTree = "<group>"; };
 		23E3458827F2BD1F0017885F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +132,7 @@
 				235F2E2927E515D700DA1615 /* RoundedUIView.swift */,
 				23E3458627ED68F60017885F /* RoundedTableView.swift */,
 				2388CB6827F7FB7A006079CD /* WordTableViewCell.swift */,
+				23CE0243280D297300537FDD /* WordDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -135,7 +140,8 @@
 		235F2E2427E4312000DA1615 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2354EAA027D9AC5400B1E8F8 /* ViewController.swift */,
+				2354EAA027D9AC5400B1E8F8 /* InitialViewController.swift */,
+				23CE0241280D26D700537FDD /* WordDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -216,8 +222,10 @@
 				235F2E2627E4326700DA1615 /* HeroWordView.swift in Sources */,
 				2388CB6927F7FB7A006079CD /* WordTableViewCell.swift in Sources */,
 				235F2E2A27E515D700DA1615 /* RoundedUIView.swift in Sources */,
-				2354EAA127D9AC5400B1E8F8 /* ViewController.swift in Sources */,
+				2354EAA127D9AC5400B1E8F8 /* InitialViewController.swift in Sources */,
 				23E3458727ED68F60017885F /* RoundedTableView.swift in Sources */,
+				23CE0244280D297300537FDD /* WordDetailView.swift in Sources */,
+				23CE0242280D26D700537FDD /* WordDetailViewController.swift in Sources */,
 				232898A227DFE9A8000789DB /* Word.swift in Sources */,
 				235F2E2827E4400A00DA1615 /* SymbolButton.swift in Sources */,
 				2354EA9D27D9AC5400B1E8F8 /* AppDelegate.swift in Sources */,

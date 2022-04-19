@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class InitialViewController: UIViewController {
 	
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
@@ -52,6 +52,12 @@ class ViewController: UIViewController {
 	var words = Words().words
 
 	// MARK: - UI Lifecycle
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		navigationController?.setNavigationBarHidden(true, animated: true)
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .backgroundColor
@@ -61,6 +67,12 @@ class ViewController: UIViewController {
 		getRandomWord()
 		addSubViews()
 	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(true)
+		
+		navigationController?.setNavigationBarHidden(false, animated: true)
+	}
 
 	// MARK: - UI Setup
 	private func addSubViews() {
@@ -68,7 +80,7 @@ class ViewController: UIViewController {
 		view.addSubview(titleLabel)
 		titleLabel.activate(constraints: [
 			titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -14)
+			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
 		])
 		
 		view.addSubview(wordView)
@@ -98,10 +110,20 @@ class ViewController: UIViewController {
 	private func getRandomWord() {
 		self.wordView.update(word: self.words.randomElement()!)
 	}
+	
+	@objc func presentRandomWordDetail() {
+		let wordDetailVC = WordDetailViewController(word: words.randomElement()!)
+		navigationController?.pushViewController(wordDetailVC, animated: true)
+	}
+	
+	private func presentWordDetail(for word: Word) {
+		let wordDetailVC = WordDetailViewController(word: word)
+		navigationController?.pushViewController(wordDetailVC, animated: true)
+	}
 }
 
 // MARK: - UITableViewDataSource
-extension ViewController: UITableViewDataSource {
+extension InitialViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		words.count
 	}
@@ -120,10 +142,10 @@ extension ViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension ViewController: UITableViewDelegate {
+extension InitialViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedWord = words[indexPath.row]
 		
-		wordView.update(word: selectedWord)
+		presentWordDetail(for: selectedWord)
 	}
 }
