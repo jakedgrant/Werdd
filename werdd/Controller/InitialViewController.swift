@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class InitialViewController: UIViewController {
 	
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
@@ -52,6 +52,12 @@ class ViewController: UIViewController {
 	var words = Words().words
 
 	// MARK: - UI Lifecycle
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		navigationController?.setNavigationBarHidden(true, animated: true)
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .backgroundColor
@@ -60,6 +66,12 @@ class ViewController: UIViewController {
 		
 		getRandomWord()
 		addSubViews()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(true)
+		
+		navigationController?.setNavigationBarHidden(false, animated: true)
 	}
 
 	// MARK: - UI Setup
@@ -98,10 +110,24 @@ class ViewController: UIViewController {
 	private func getRandomWord() {
 		self.wordView.update(word: self.words.randomElement()!)
 	}
+	
+	@objc func presentRandomWordDetail() {
+		let wordDetailVC = WordDetailViewController(word: words.randomElement()!)
+		navigationController?.pushViewController(wordDetailVC, animated: true)
+	}
+	
+	private func presentWordDetail(for word: Word) {
+		var showWord = word
+		showWord.synonym = "eject" // TODO: remove this
+		showWord.antonym = "welcome"
+		showWord.example = "Yet the zeal and speed of his defenestration should give us some discomfort."
+		let wordDetailVC = WordDetailViewController(word: showWord)
+		navigationController?.pushViewController(wordDetailVC, animated: true)
+	}
 }
 
 // MARK: - UITableViewDataSource
-extension ViewController: UITableViewDataSource {
+extension InitialViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		words.count
 	}
@@ -120,10 +146,10 @@ extension ViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension ViewController: UITableViewDelegate {
+extension InitialViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedWord = words[indexPath.row]
 		
-		wordView.update(word: selectedWord)
+		presentWordDetail(for: selectedWord)
 	}
 }

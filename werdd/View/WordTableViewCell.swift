@@ -71,15 +71,15 @@ class WordTableViewCell: UITableViewCell {
 	private func setUpUI() {		
 		backgroundColor = .gapLightYellow
 		
-		selectedView.cornerRadius = 40
-		selectedView.makeCornersRounded()
-		selectedContainerView.addSubview(selectedView)
-		selectedView.activate(constraints: [
-			selectedView.topAnchor.constraint(equalTo: selectedContainerView.topAnchor, constant: 3),
-			selectedView.leadingAnchor.constraint(equalTo: selectedContainerView.leadingAnchor, constant: 12),
-			selectedView.trailingAnchor.constraint(equalTo: selectedContainerView.trailingAnchor, constant: -12),
-			selectedView.bottomAnchor.constraint(equalTo: selectedContainerView.bottomAnchor, constant: -3),
-		])
+//		selectedView.cornerRadius = 40
+//		selectedView.makeCornersRounded()
+//		selectedContainerView.addSubview(selectedView)
+//		selectedView.activate(constraints: [
+//			selectedView.topAnchor.constraint(equalTo: selectedContainerView.topAnchor, constant: 3),
+//			selectedView.leadingAnchor.constraint(equalTo: selectedContainerView.leadingAnchor, constant: 12),
+//			selectedView.trailingAnchor.constraint(equalTo: selectedContainerView.trailingAnchor, constant: -12),
+//			selectedView.bottomAnchor.constraint(equalTo: selectedContainerView.bottomAnchor, constant: -3),
+//		])
 		
 		// Set background if selected
 //		let backgroundView = RoundedUIView()
@@ -103,13 +103,13 @@ class WordTableViewCell: UITableViewCell {
 		
 		wordHStack.activate(constraints: [
 			wordHStack.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 16),
-			wordHStack.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20)
+			wordHStack.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 24)
 		])
 		
 		definitionLabel.activate(constraints: [
 			definitionLabel.topAnchor.constraint(equalTo: wordHStack.bottomAnchor, constant: 4),
 			definitionLabel.leadingAnchor.constraint(equalTo: wordHStack.leadingAnchor),
-			definitionLabel.widthAnchor.constraint(equalTo: cardView.widthAnchor, constant: -40),
+			definitionLabel.widthAnchor.constraint(equalTo: cardView.widthAnchor, constant: -48),
 			definitionLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -16)
 		])
 	}
@@ -120,7 +120,7 @@ class WordTableViewCell: UITableViewCell {
 		definitionLabel.text = word.definition
 	}
 	
-	override func setSelected(_ selected: Bool, animated: Bool) {
-		super.setSelected(selected, animated: true)
-	}
+//	override func setSelected(_ selected: Bool, animated: Bool) {
+//		super.setSelected(selected, animated: true)
+//	}
 }
