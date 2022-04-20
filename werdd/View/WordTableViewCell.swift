@@ -103,13 +103,13 @@ class WordTableViewCell: UITableViewCell {
 		
 		wordHStack.activate(constraints: [
 			wordHStack.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 16),
-			wordHStack.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20)
+			wordHStack.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 24)
 		])
 		
 		definitionLabel.activate(constraints: [
 			definitionLabel.topAnchor.constraint(equalTo: wordHStack.bottomAnchor, constant: 4),
 			definitionLabel.leadingAnchor.constraint(equalTo: wordHStack.leadingAnchor),
-			definitionLabel.widthAnchor.constraint(equalTo: cardView.widthAnchor, constant: -40),
+			definitionLabel.widthAnchor.constraint(equalTo: cardView.widthAnchor, constant: -48),
 			definitionLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -16)
 		])
 	}

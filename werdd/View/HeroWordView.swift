@@ -104,11 +104,11 @@ class HeroWordView: UIView, RoundableView {
 		
 		wordHStackView.activate(constraints: [
 			wordHStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-			wordHStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20)
+			wordHStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24)
 		])
 		
 		definitionLabel.activate(constraints: [
-			definitionLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, constant: -40)
+			definitionLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, constant: -48)
 		])
 	}
 	

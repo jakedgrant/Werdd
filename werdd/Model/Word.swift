@@ -10,6 +10,10 @@ struct Word {
 	let partOfSpeech: PartOfSpeech
 	let definition: String
 	
+	var synonym: String? = nil
+	var antonym: String? = nil
+	var example: String? = nil
+	
 	enum PartOfSpeech: String {
 		case noun, pronoun, verb, adjective, adverb, preposition, conjunction, interjection, article
 	}

@@ -20,6 +20,15 @@ class WordDetailView: UIView, RoundableView {
 		return stack
 	}()
 	
+	let partOfSpeechLabel: UILabel = {
+		let label = UILabel()
+		
+		label.font = .playfairDisplayFont(.italic, size: 18)
+		
+		label.textColor = .gapNavy
+		return label
+	}()
+	
 	var contentLabel: UILabel = {
 		let label = UILabel()
 		
@@ -34,7 +43,7 @@ class WordDetailView: UIView, RoundableView {
 	
 	lazy var detailLabel: UILabel = {
 		let label = UILabel()
-		label.font = .playfairDisplayFont(.bold, size: 16)
+		label.font = .playfairDisplayFont(.bold, size: 18)
 		label.textColor = .gapWhite
 		
 		return label
@@ -75,8 +84,13 @@ class WordDetailView: UIView, RoundableView {
 	}
 	
 	public func updateLabels() {
+		partOfSpeechLabel.text = partOfSpeech?.rawValue
 		contentLabel.text = content
 		detailLabel.text = detailType?.rawValue
+		
+		if partOfSpeech != nil {
+			VStack.insertArrangedSubview(partOfSpeechLabel, at: 0)
+		}
 	}
 	
 	private func setUpUI() {
@@ -87,8 +101,8 @@ class WordDetailView: UIView, RoundableView {
 		
 		VStack.activate(constraints: [
 			VStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-			VStack.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-			VStack.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+			VStack.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+			VStack.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
 		])
 		
 		contentLabel.activate(constraints: [

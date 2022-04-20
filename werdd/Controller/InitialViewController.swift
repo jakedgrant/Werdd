@@ -117,7 +117,11 @@ class InitialViewController: UIViewController {
 	}
 	
 	private func presentWordDetail(for word: Word) {
-		let wordDetailVC = WordDetailViewController(word: word)
+		var showWord = word
+		showWord.synonym = "eject" // TODO: remove this
+		showWord.antonym = "welcome"
+		showWord.example = "Yet the zeal and speed of his defenestration should give us some discomfort."
+		let wordDetailVC = WordDetailViewController(word: showWord)
 		navigationController?.pushViewController(wordDetailVC, animated: true)
 	}
 }
