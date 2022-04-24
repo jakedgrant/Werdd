@@ -25,8 +25,7 @@ class WordDetailViewController: UIViewController {
 	// definition
 	lazy var definitionView: WordDetailView = {
 		let detail = WordDetailView(
-			partOfSpeech: word.partOfSpeech,
-			content: word.definition,
+			content: word.results?.first?.definition,
 			detailType: .definition)
 
 		return detail
@@ -35,7 +34,7 @@ class WordDetailViewController: UIViewController {
 	// synonyms
 	lazy var synonymView: WordDetailView = {
 		let detail = WordDetailView(
-			content: word.synonym,
+			content: word.results?.first?.synonyms?.first,
 			detailType: .synonym)
 		return detail
 	}()
@@ -43,7 +42,7 @@ class WordDetailViewController: UIViewController {
 	// antonyms
 	lazy var antonymView: WordDetailView = {
 		let detail = WordDetailView(
-			content: word.antonym,
+			content: word.results?.first?.antonyms?.first,
 			detailType: .antonym)
 		return detail
 	}()
@@ -51,7 +50,7 @@ class WordDetailViewController: UIViewController {
 	// example
 	lazy var exampleView: WordDetailView = {
 		let detail = WordDetailView(
-			content: word.example,
+			content: word.results?.first?.examples?.first,
 			detailType: .example)
 		return detail
 	}()

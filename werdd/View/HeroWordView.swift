@@ -119,14 +119,14 @@ class HeroWordView: UIView, RoundableView {
 		wordLabel.text = word.word
 		
 //		partOfSpeechLabel.fadeTransition(0.3)
-		partOfSpeechLabel.text = word.partOfSpeech.rawValue
+		partOfSpeechLabel.text = word.results?.first?.partOfSpeech?.rawValue
 		
 		// creating justified attributed string
-		let definition = word.definition
+		let definition = word.results?.first?.definition
 		let justifiedStyle: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
 		justifiedStyle.alignment = .justified
 		let attributes = [NSAttributedString.Key.paragraphStyle: justifiedStyle]
-		let justifiedString = NSAttributedString.init(string: definition, attributes: attributes)
+		let justifiedString = NSAttributedString.init(string: definition ?? "", attributes: attributes)
 		
 //		definitionLabel.fadeTransition(0.3)
 		definitionLabel.attributedText = justifiedString

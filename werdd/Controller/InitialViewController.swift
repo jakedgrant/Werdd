@@ -8,6 +8,11 @@
 import UIKit
 
 class InitialViewController: UIViewController {
+	var currentWord: Word? {
+		didSet {
+			wordView.update(word: currentWord!)
+		}
+	}
 	
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
@@ -49,7 +54,13 @@ class InitialViewController: UIViewController {
 	}()
 	
 	// MARK: - Properties
-	var words = Words().words
+	var words = [Word(word: "thing",
+					  results: [WordResult(
+						definition: "this is a thingy thing thing",
+						partOfSpeech: .verb,
+						synonyms: nil,
+						antonyms: nil,
+						examples: nil)])]
 
 	// MARK: - UI Lifecycle
 	override func viewWillAppear(_ animated: Bool) {
@@ -108,8 +119,6 @@ class InitialViewController: UIViewController {
 	
 	// MARK: - Actions
 	private func getRandomWord() {
-		self.wordView.update(word: self.words.randomElement()!)
-		
 		guard let randomWordUrl = URL(string: "https://wordsapiv1.p.rapidapi.com/words/?random=true") else {
 			print("Invalid URL")
 			return
@@ -117,8 +126,10 @@ class InitialViewController: UIViewController {
 		
 		var urlRequest = URLRequest(url: randomWordUrl)
 		urlRequest.httpMethod = "GET"
-		urlRequest.setValue("wordsapiv1.p.rapidapi.com", forHTTPHeaderField: "X-RapidAPI-Host")
-		urlRequest.setValue("cfcd8bc8b6msh1a6358eed3f279ap1a6b17jsn9ea864732992", forHTTPHeaderField: "X-RapidAPI-Key")
+		urlRequest.allHTTPHeaderFields = [
+			"X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
+			"X-RapidAPI-Key": Secrets.wordApiKey
+		]
 		
 		URLSession.shared.dataTask(with: urlRequest) { data, response, error in
 			guard let data = data, error == nil else {
@@ -126,13 +137,18 @@ class InitialViewController: UIViewController {
 				return
 			}
 			
-			do {
-				let words = try JSONDecoder().decode([Word].self, from: data)
-				print(words)
+			DispatchQueue.main.async {
+				do {
+					let word = try JSONDecoder().decode(Word.self, from: data)
+					self.currentWord = word
+					print(word)
+				}
+				catch {
+					print("Failed to convert \(error.localizedDescription)")
+				}
 			}
-			catch {
-				print("Failed to convert \(error.localizedDescription)")
-			}
+			
+
 		}.resume()
 	}
 	
@@ -143,9 +159,6 @@ class InitialViewController: UIViewController {
 	
 	private func presentWordDetail(for word: Word) {
 		var showWord = word
-		showWord.synonym = "eject" // TODO: remove this
-		showWord.antonym = "welcome"
-		showWord.example = "Yet the zeal and speed of his defenestration should give us some discomfort."
 		let wordDetailVC = WordDetailViewController(word: showWord)
 		navigationController?.pushViewController(wordDetailVC, animated: true)
 	}

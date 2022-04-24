@@ -116,8 +116,8 @@ class WordTableViewCell: UITableViewCell {
 	
 	func update(word: Word) {
 		wordLabel.text = word.word
-		partOfSpeechLabel.text = word.partOfSpeech.rawValue
-		definitionLabel.text = word.definition
+		partOfSpeechLabel.text = word.results?.first?.partOfSpeech?.rawValue
+		definitionLabel.text = word.results?.first?.definition
 	}
 	
 //	override func setSelected(_ selected: Bool, animated: Bool) {
