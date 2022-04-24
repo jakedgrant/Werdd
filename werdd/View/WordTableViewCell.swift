@@ -49,8 +49,6 @@ class WordTableViewCell: UITableViewCell {
 		return view
 	}()
 	
-	private let selectedContainerView = UIView()
-	
 	private let selectedView: RoundedUIView = {
 		let view = RoundedUIView()
 		view.layer.borderWidth = 4
@@ -70,21 +68,6 @@ class WordTableViewCell: UITableViewCell {
 	
 	private func setUpUI() {		
 		backgroundColor = .gapLightYellow
-		
-//		selectedView.cornerRadius = 40
-//		selectedView.makeCornersRounded()
-//		selectedContainerView.addSubview(selectedView)
-//		selectedView.activate(constraints: [
-//			selectedView.topAnchor.constraint(equalTo: selectedContainerView.topAnchor, constant: 3),
-//			selectedView.leadingAnchor.constraint(equalTo: selectedContainerView.leadingAnchor, constant: 12),
-//			selectedView.trailingAnchor.constraint(equalTo: selectedContainerView.trailingAnchor, constant: -12),
-//			selectedView.bottomAnchor.constraint(equalTo: selectedContainerView.bottomAnchor, constant: -3),
-//		])
-		
-		// Set background if selected
-//		let backgroundView = RoundedUIView()
-//		backgroundView.backgroundColor = .gapYellow
-		selectedBackgroundView = selectedContainerView
 		
 		wordHStack.addArrangedSubview(wordLabel)
 		wordHStack.addArrangedSubview(partOfSpeechLabel)
@@ -119,8 +102,4 @@ class WordTableViewCell: UITableViewCell {
 		partOfSpeechLabel.text = word.results?.first?.partOfSpeech?.rawValue
 		definitionLabel.text = word.results?.first?.definition
 	}
-	
-//	override func setSelected(_ selected: Bool, animated: Bool) {
-//		super.setSelected(selected, animated: true)
-//	}
 }
