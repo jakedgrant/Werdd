@@ -10,7 +10,9 @@ import UIKit
 class InitialViewController: UIViewController {
 	var currentWord: Word? {
 		didSet {
-			wordView.update(word: currentWord!)
+			if let word = currentWord {
+				wordView.update(word: word)
+			}
 		}
 	}
 	
@@ -31,7 +33,7 @@ class InitialViewController: UIViewController {
 	lazy var randomWordButton: SymbolButton = {
 		let button = SymbolButton(
 			systemName: "arrow.clockwise.circle",
-			withAction: getRandomWord)
+			withAction: randomWordRequested)
 		button.animation = {
 			let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
 			   rotation.toValue = NSNumber(value: Double.pi * 2)
@@ -75,7 +77,7 @@ class InitialViewController: UIViewController {
 
 		words.sort { $0.word < $1.word }
 		
-		getRandomWord()
+		randomWordRequested()
 		addSubViews()
 	}
 	
@@ -118,7 +120,20 @@ class InitialViewController: UIViewController {
 	}
 	
 	// MARK: - Actions
-	private func getRandomWord() {
+	private func randomWordRequested() {
+		fetchRandomWord { word, error in
+			if let error = error {
+				print(error.localizedDescription)
+			}
+			
+			DispatchQueue.main.async { [weak self] in
+				self?.currentWord = word
+				self?.removeSpinner()
+			}
+		}
+	}
+	
+	private func fetchRandomWord(completion: @escaping (Word?, Error?) -> Void) {
 		guard let randomWordUrl = URL(string: "https://wordsapiv1.p.rapidapi.com/words/?random=true") else {
 			print("Invalid URL")
 			return
@@ -131,24 +146,23 @@ class InitialViewController: UIViewController {
 			"X-RapidAPI-Key": Secrets.wordApiKey
 		]
 		
+		addSpinner()
+		
 		URLSession.shared.dataTask(with: urlRequest) { data, response, error in
 			guard let data = data, error == nil else {
-				print("There was an error: \(error?.localizedDescription ?? "unknown error")")
+				completion(nil, error)
 				return
 			}
 			
-			DispatchQueue.main.async {
-				do {
-					let word = try JSONDecoder().decode(Word.self, from: data)
-					self.currentWord = word
-					print(word)
-				}
-				catch {
-					print("Failed to convert \(error.localizedDescription)")
-				}
+			do {
+				let word = try JSONDecoder().decode(Word.self, from: data)
+				completion(word, error)
+				print(word)
 			}
-			
-
+			catch {
+				print("Failed to convert \(error.localizedDescription)")
+				completion(nil, error)
+			}
 		}.resume()
 	}
 	
@@ -189,5 +203,25 @@ extension InitialViewController: UITableViewDelegate {
 		let selectedWord = words[indexPath.row]
 		
 		presentWordDetail(for: selectedWord)
+	}
+	
+// MARK: - Spinner
+	func addSpinner() {
+		let child = SpinnerViewController()
+		
+		addChild(child)
+		child.view.frame = view.frame
+		view.addSubview(child.view)
+		child.didMove(toParent: self)
+	}
+	
+	func removeSpinner() {
+		
+		let child = children.first as? SpinnerViewController
+		if let child = child {
+			child.willMove(toParent: nil)
+			child.view?.removeFromSuperview()
+			child.removeFromParent()
+		}
 	}
 }
