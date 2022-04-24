@@ -62,7 +62,7 @@ class InitialViewController: UIViewController {
 		super.viewDidLoad()
 		view.backgroundColor = .backgroundColor
 
-		words.sort { $0.name < $1.name }
+		words.sort { $0.word < $1.word }
 		
 		getRandomWord()
 		addSubViews()
@@ -109,6 +109,31 @@ class InitialViewController: UIViewController {
 	// MARK: - Actions
 	private func getRandomWord() {
 		self.wordView.update(word: self.words.randomElement()!)
+		
+		guard let randomWordUrl = URL(string: "https://wordsapiv1.p.rapidapi.com/words/?random=true") else {
+			print("Invalid URL")
+			return
+		}
+		
+		var urlRequest = URLRequest(url: randomWordUrl)
+		urlRequest.httpMethod = "GET"
+		urlRequest.setValue("wordsapiv1.p.rapidapi.com", forHTTPHeaderField: "X-RapidAPI-Host")
+		urlRequest.setValue("cfcd8bc8b6msh1a6358eed3f279ap1a6b17jsn9ea864732992", forHTTPHeaderField: "X-RapidAPI-Key")
+		
+		URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+			guard let data = data, error == nil else {
+				print("There was an error: \(error?.localizedDescription ?? "unknown error")")
+				return
+			}
+			
+			do {
+				let words = try JSONDecoder().decode([Word].self, from: data)
+				print(words)
+			}
+			catch {
+				print("Failed to convert \(error.localizedDescription)")
+			}
+		}.resume()
 	}
 	
 	@objc func presentRandomWordDetail() {

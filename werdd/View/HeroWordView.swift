@@ -116,7 +116,7 @@ class HeroWordView: UIView, RoundableView {
 	func update(word: Word) {
 		
 //		wordLabel.fadeTransition(0.3)
-		wordLabel.text = word.name
+		wordLabel.text = word.word
 		
 //		partOfSpeechLabel.fadeTransition(0.3)
 		partOfSpeechLabel.text = word.partOfSpeech.rawValue

@@ -71,7 +71,7 @@ class WordDetailViewController: UIViewController {
 	override func loadView() {
 		super.loadView()
 		
-		navigationItem.title = word.name
+		navigationItem.title = word.word
 		navigationController?.navigationBar.prefersLargeTitles = true
 		
 		view.backgroundColor = .backgroundColor

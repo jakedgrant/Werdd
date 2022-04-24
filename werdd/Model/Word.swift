@@ -5,8 +5,8 @@
 //  Created by Jake Grant on 3/14/22.
 //
 
-struct Word {
-	let name: String
+struct Word: Codable {
+	let word: String
 	let partOfSpeech: PartOfSpeech
 	let definition: String
 	
@@ -14,9 +14,20 @@ struct Word {
 	var antonym: String? = nil
 	var example: String? = nil
 	
-	enum PartOfSpeech: String {
-		case noun, pronoun, verb, adjective, adverb, preposition, conjunction, interjection, article
-	}
+	var result: [WordResult]? = nil
+}
+
+struct WordResult: Codable {
+	let definition: String
+	let partOfSpeech: PartOfSpeech
+	
+	let synonym: [String]?
+	let antonyms: [String]?
+	let examples: [String]?
+}
+
+enum PartOfSpeech: String, Codable {
+	case noun, pronoun, verb, adjective, adverb, preposition, conjunction, interjection, article
 }
 
 public enum WordInfoType: String {
@@ -28,43 +39,43 @@ public enum WordInfoType: String {
 
 class Words {
 	let words: [Word] = [
-		Word(name: "onomatopaeia",
+		Word(word: "onomatopaeia",
 			 partOfSpeech: .noun,
 			 definition: "the naming of a thing or action by a vocal imitation of the sound associated with it (such as buzz, hiss)"),
 		
-		Word(name: "penultimate",
+		Word(word: "penultimate",
 			 partOfSpeech: .adjective,
 			 definition: "last but one in a series of things; second last"),
 		
-		Word(name: "defenestrate",
+		Word(word: "defenestrate",
 			 partOfSpeech: .verb,
 			 definition: "throw (someone) out of a window"),
 		
-		Word(name: "switch",
+		Word(word: "switch",
 			 partOfSpeech: .verb,
 			 definition: "change the position, direction, or focus of"),
 		
-		Word(name: "pontificate",
+		Word(word: "pontificate",
 			 partOfSpeech: .verb,
 			 definition: "express one's opinions in a way considered annoyingly pompous and dogmatic"),
 		
-		Word(name: "detergent",
+		Word(word: "detergent",
 			 partOfSpeech: .noun,
 			 definition: "a water-soluble cleansing agent which combines with impurities and dirt to make them more soluble, and differs from soap in not forming a scum with the salts in hard water"),
 		
-		Word(name: "bacon",
+		Word(word: "bacon",
 			 partOfSpeech: .noun,
 			 definition: "cured meat from the sides and belly of a pig, having distinct strips of fat and typically served in thin slices"),
 		
-		Word(name: "jambalaya",
+		Word(word: "jambalaya",
 			 partOfSpeech: .noun,
 			 definition: "a Cajun dish of rice with shrimp, chicken, and vegetables"),
 		
-		Word(name: "diode",
+		Word(word: "diode",
 			 partOfSpeech: .noun,
 			 definition: "a semiconductor device with two terminals, typically allowing the flow of current in one direction only"),
 		
-		Word(name: "algorithm",
+		Word(word: "algorithm",
 			 partOfSpeech: .noun,
 			 definition: "a process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer")
 	]
