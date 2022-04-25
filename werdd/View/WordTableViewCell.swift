@@ -49,13 +49,6 @@ class WordTableViewCell: UITableViewCell {
 		return view
 	}()
 	
-	private let selectedView: RoundedUIView = {
-		let view = RoundedUIView()
-		view.layer.borderWidth = 4
-		view.layer.borderColor = UIColor.gapYellow.cgColor
-		return view
-	}()
-	
 	// MARK: - Initializers
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
