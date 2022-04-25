@@ -16,6 +16,8 @@ class InitialViewController: UIViewController {
 		}
 	}
 	
+	var searchWord: Word?
+	
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
 		let label = UILabel()
@@ -128,6 +130,8 @@ class InitialViewController: UIViewController {
 			
 			DispatchQueue.main.async { [weak self] in
 				self?.currentWord = word
+				self?.searchWord = word
+				self?.wordTable.reloadData()
 				self?.removeSpinner()
 			}
 		}
@@ -172,8 +176,7 @@ class InitialViewController: UIViewController {
 	}
 	
 	private func presentWordDetail(for word: Word) {
-		var showWord = word
-		let wordDetailVC = WordDetailViewController(word: showWord)
+		let wordDetailVC = WordDetailViewController(word: word)
 		navigationController?.pushViewController(wordDetailVC, animated: true)
 	}
 }
@@ -181,7 +184,7 @@ class InitialViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension InitialViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		words.count
+		searchWord?.results?.count ?? 0
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -190,10 +193,14 @@ extension InitialViewController: UITableViewDataSource {
 			return UITableViewCell()
 		}
 		
-		let word = words[indexPath.row]
-		cell.update(word: word)
-	
-		return cell
+		if let word = searchWord?.word, let results = searchWord?.results {
+			let result = results[indexPath.row]
+			
+			cell.update(word: word, result: result)
+			return cell
+		} else {
+			return UITableViewCell()
+		}
 	}
 }
 

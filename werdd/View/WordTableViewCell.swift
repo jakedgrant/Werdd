@@ -97,9 +97,9 @@ class WordTableViewCell: UITableViewCell {
 		])
 	}
 	
-	func update(word: Word) {
-		wordLabel.text = word.word
-		partOfSpeechLabel.text = word.results?.first?.partOfSpeech?.rawValue
-		definitionLabel.text = word.results?.first?.definition
+	func update(word: String, result: WordResult) {
+		wordLabel.text = word
+		partOfSpeechLabel.text = result.partOfSpeech?.rawValue
+		definitionLabel.text = result.definition
 	}
 }
