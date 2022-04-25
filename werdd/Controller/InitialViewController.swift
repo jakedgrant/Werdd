@@ -57,6 +57,22 @@ class InitialViewController: UIViewController {
 		return table
 	}()
 	
+	let searchBox: UITextField = {
+		let textField = UITextField()
+		textField.placeholder = "Search words"
+		textField.clearsOnBeginEditing = true
+		textField.font = UIFont.playfairDisplayFont(.regular, size: 16)
+		textField.keyboardType = .alphabet
+		return textField
+	}()
+	
+	let searchButton: UIButton = {
+		let button = UIButton(type: .roundedRect)
+		button.setTitle("Search", for: .normal)
+		button.tintColor = .gapRed
+		return button
+	}()
+	
 	// MARK: - Properties
 	var words = [Word(word: "thing",
 					  results: [WordResult(
@@ -76,6 +92,8 @@ class InitialViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .backgroundColor
+		
+		searchButton.addTarget(self, action: #selector(searchWordRequested), for: .touchUpInside)
 
 		words.sort { $0.word < $1.word }
 		
@@ -113,6 +131,22 @@ class InitialViewController: UIViewController {
 			randomWordButton.bottomAnchor.constraint(equalTo: wordView.bottomAnchor, constant: -16)
 		])
 		
+		view.addSubview(searchBox)
+		searchBox.activate(constraints: [
+			searchBox.topAnchor.constraint(equalTo: wordView.bottomAnchor),
+			searchBox.leadingAnchor.constraint(equalTo: wordView.leadingAnchor),
+			searchBox.trailingAnchor.constraint(equalTo: wordView.trailingAnchor, constant: -80),
+			searchBox.heightAnchor.constraint(equalToConstant: 40)
+		])
+		
+		view.addSubview(searchButton)
+		searchButton.activate(constraints: [
+			searchButton.topAnchor.constraint(equalTo: searchBox.topAnchor),
+			searchButton.leadingAnchor.constraint(equalTo: searchBox.trailingAnchor),
+			searchButton.trailingAnchor.constraint(equalTo: wordView.trailingAnchor),
+			searchButton.heightAnchor.constraint(equalTo: searchBox.heightAnchor)
+		])
+		
 		view.addSubview(wordTable)
 		wordTable.activate(constraints: [
 			wordTable.topAnchor.constraint(equalTo: wordView.bottomAnchor, constant: 40),
@@ -136,15 +170,17 @@ class InitialViewController: UIViewController {
 		}
 	}
 	
-	private func searchWordRequested() {
-		fetchSearchWord("flat") { word, error in
-			if let error = error {
-				print(error.localizedDescription)
-			}
-			
-			DispatchQueue.main.async { [weak self] in
-				self?.searchWord = word
-				self?.wordTable.reloadData()
+	@objc private func searchWordRequested() {
+		if let word = searchBox.text?.lowercased() {
+			fetchSearchWord(word) { word, error in
+				if let error = error {
+					print(error.localizedDescription)
+				}
+				
+				DispatchQueue.main.async { [weak self] in
+					self?.searchWord = word
+					self?.wordTable.reloadData()
+				}
 			}
 		}
 	}
