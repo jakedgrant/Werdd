@@ -77,8 +77,8 @@ class InitialViewController: UIViewController {
 
 		words.sort { $0.word < $1.word }
 		
-		randomWordRequested()
 		addSubViews()
+		randomWordRequested()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
