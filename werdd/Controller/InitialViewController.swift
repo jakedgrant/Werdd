@@ -170,13 +170,8 @@ class InitialViewController: UIViewController {
 		}.resume()
 	}
 	
-	@objc func presentRandomWordDetail() {
-		let wordDetailVC = WordDetailViewController(word: words.randomElement()!)
-		navigationController?.pushViewController(wordDetailVC, animated: true)
-	}
-	
-	private func presentWordDetail(for word: Word) {
-		let wordDetailVC = WordDetailViewController(word: word)
+	private func presentWordDetail(for word: String, with result: WordResult) {
+		let wordDetailVC = WordDetailViewController(word: word, result: result)
 		navigationController?.pushViewController(wordDetailVC, animated: true)
 	}
 }
@@ -207,9 +202,9 @@ extension InitialViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension InitialViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let selectedWord = words[indexPath.row]
-		
-		presentWordDetail(for: selectedWord)
+		if let word = searchWord?.word, let result = searchWord?.results?[indexPath.row] {
+			presentWordDetail(for: word, with: result)
+		}
 	}
 	
 // MARK: - Spinner
