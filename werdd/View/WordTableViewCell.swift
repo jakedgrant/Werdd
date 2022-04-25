@@ -62,6 +62,8 @@ class WordTableViewCell: UITableViewCell {
 	private func setUpUI() {		
 		backgroundColor = .gapLightYellow
 		
+		selectedBackgroundView = UIView()
+		
 		wordHStack.addArrangedSubview(wordLabel)
 		wordHStack.addArrangedSubview(partOfSpeechLabel)
 		

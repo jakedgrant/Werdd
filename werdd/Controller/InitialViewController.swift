@@ -81,6 +81,7 @@ class InitialViewController: UIViewController {
 		
 		addSubViews()
 		randomWordRequested()
+		searchWordRequested()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -130,13 +131,25 @@ class InitialViewController: UIViewController {
 			
 			DispatchQueue.main.async { [weak self] in
 				self?.currentWord = word
-				self?.searchWord = word
-				self?.wordTable.reloadData()
 				self?.removeSpinner()
 			}
 		}
 	}
 	
+	private func searchWordRequested() {
+		fetchSearchWord("flat") { word, error in
+			if let error = error {
+				print(error.localizedDescription)
+			}
+			
+			DispatchQueue.main.async { [weak self] in
+				self?.searchWord = word
+				self?.wordTable.reloadData()
+			}
+		}
+	}
+	
+	// MARK: - Networking
 	private func fetchRandomWord(completion: @escaping (Word?, Error?) -> Void) {
 		guard let randomWordUrl = URL(string: "https://wordsapiv1.p.rapidapi.com/words/?random=true") else {
 			print("Invalid URL")
@@ -152,6 +165,37 @@ class InitialViewController: UIViewController {
 		
 		addSpinner()
 		
+		URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+			guard let data = data, error == nil else {
+				completion(nil, error)
+				return
+			}
+			
+			do {
+				let word = try JSONDecoder().decode(Word.self, from: data)
+				completion(word, error)
+				print(word)
+			}
+			catch {
+				print("Failed to convert \(error.localizedDescription)")
+				completion(nil, error)
+			}
+		}.resume()
+	}
+	
+	private func fetchSearchWord(_ word: String, completion: @escaping (Word?, Error?) -> Void) {
+		guard let searchWordUrl = URL(string: "https://wordsapiv1.p.rapidapi.com/words/\(word)") else {
+			print("INvalid URL")
+			return
+		}
+		
+		var urlRequest = URLRequest(url: searchWordUrl)
+		urlRequest.httpMethod = "GET"
+		urlRequest.allHTTPHeaderFields = [
+			"X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
+			"X-RapidAPI-Key": Secrets.wordApiKey
+		]
+				
 		URLSession.shared.dataTask(with: urlRequest) { data, response, error in
 			guard let data = data, error == nil else {
 				completion(nil, error)
