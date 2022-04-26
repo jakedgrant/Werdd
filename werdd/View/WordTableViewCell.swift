@@ -8,7 +8,7 @@
 import UIKit
 
 class WordTableViewCell: UITableViewCell {
-	static let wordCellIdentifier = "WordTableViewCell"
+	static let reuseIdentifier = "WordTableViewCell"
 
 	// MARK: - UIProperties
 	private let wordHStack: UIStackView = {

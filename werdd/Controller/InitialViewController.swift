@@ -52,7 +52,8 @@ class InitialViewController: UIViewController {
 		table.backgroundColor = .gapLightYellow
 		table.dataSource = self
 		table.delegate = self
-		table.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.wordCellIdentifier)
+		table.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.reuseIdentifier)
+		table.register(SearchBarHeaderView.self, forHeaderFooterViewReuseIdentifier: SearchBarHeaderView.reuseIdentifier)
 		table.separatorStyle = .none
 		return table
 	}()
@@ -99,7 +100,6 @@ class InitialViewController: UIViewController {
 		
 		addSubViews()
 		randomWordRequested()
-		searchWordRequested()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -131,22 +131,6 @@ class InitialViewController: UIViewController {
 			randomWordButton.bottomAnchor.constraint(equalTo: wordView.bottomAnchor, constant: -16)
 		])
 		
-		view.addSubview(searchBox)
-		searchBox.activate(constraints: [
-			searchBox.topAnchor.constraint(equalTo: wordView.bottomAnchor),
-			searchBox.leadingAnchor.constraint(equalTo: wordView.leadingAnchor),
-			searchBox.trailingAnchor.constraint(equalTo: wordView.trailingAnchor, constant: -80),
-			searchBox.heightAnchor.constraint(equalToConstant: 40)
-		])
-		
-		view.addSubview(searchButton)
-		searchButton.activate(constraints: [
-			searchButton.topAnchor.constraint(equalTo: searchBox.topAnchor),
-			searchButton.leadingAnchor.constraint(equalTo: searchBox.trailingAnchor),
-			searchButton.trailingAnchor.constraint(equalTo: wordView.trailingAnchor),
-			searchButton.heightAnchor.constraint(equalTo: searchBox.heightAnchor)
-		])
-		
 		view.addSubview(wordTable)
 		wordTable.activate(constraints: [
 			wordTable.topAnchor.constraint(equalTo: wordView.bottomAnchor, constant: 40),
@@ -170,8 +154,10 @@ class InitialViewController: UIViewController {
 		}
 	}
 	
-	@objc private func searchWordRequested() {
-		if let word = searchBox.text?.lowercased() {
+	@objc private func searchWordRequested(for word: String?) {
+		// TODO: Dismiss keyboard on button press
+		
+		if let word = word?.lowercased() {
 			fetchSearchWord(word) { word, error in
 				if let error = error {
 					print(error.localizedDescription)
@@ -258,13 +244,25 @@ class InitialViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 extension InitialViewController: UITableViewDataSource {
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: SearchBarHeaderView.reuseIdentifier) as? SearchBarHeaderView else {
+			return nil
+		}
+		
+		headerView.buttonAction = { [weak self] in
+			self?.searchWordRequested(for: headerView.searchTextField.text)
+		}
+		
+		return headerView
+	}
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		searchWord?.results?.count ?? 0
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.wordCellIdentifier, for: indexPath) as? WordTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.reuseIdentifier, for: indexPath) as? WordTableViewCell else {
 			return UITableViewCell()
 		}
 		
