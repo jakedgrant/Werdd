@@ -13,6 +13,12 @@ class SymbolButton: UIButton {
 	var buttonAction: (() -> Void)?
 	var animation: (() -> Void)?
 	
+	override var tintColor: UIColor! {
+		didSet {
+			setUpUI()
+		}
+	}
+	
 	init(systemName: String,
 		 titleText: String? = nil,
 		 withAction action: (() -> Void)?) {
@@ -34,7 +40,8 @@ class SymbolButton: UIButton {
 	private func setUpUI() {
 		
 		let symbolConfig = UIImage.SymbolConfiguration(pointSize: 30)
-		let buttonImage = UIImage(systemName: systemName, withConfiguration: symbolConfig)
+		var buttonImage = UIImage(systemName: systemName, withConfiguration: symbolConfig)
+		buttonImage = buttonImage?.applyingSymbolConfiguration(.init(hierarchicalColor: self.tintColor))
 		setImage(buttonImage, for: .normal)
 	}
 	

@@ -23,6 +23,16 @@ class WordDetailViewController: UIViewController {
 		return stack
 	}()
 	
+	lazy var faveButton: SymbolButton = {
+		let button = SymbolButton(
+			systemName: "heart.text.square.fill",
+			titleText: nil,
+			withAction: addWordToFavorites)
+		
+		button.tintColor = .gapRed
+		return button
+	}()
+	
 	// definition
 	lazy var definitionView: WordDetailView = {
 		let detail = WordDetailView(
@@ -75,6 +85,11 @@ class WordDetailViewController: UIViewController {
 		navigationItem.title = word
 		navigationController?.navigationBar.prefersLargeTitles = true
 		
+		
+		let buttonItem = UIBarButtonItem.init(customView: faveButton)
+		
+		navigationItem.rightBarButtonItem = buttonItem
+		
 		view.backgroundColor = .backgroundColor
 		
 		setUpUI()
@@ -125,5 +140,9 @@ class WordDetailViewController: UIViewController {
 			stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 			stackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40)
 		])
+	}
+	
+	private func addWordToFavorites() {
+		print("button pressed")
 	}
 }
