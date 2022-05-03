@@ -8,7 +8,8 @@
 import UIKit
 
 class WordDetailViewController: UIViewController {
-	var word: Word
+	var word: String
+	var result: WordResult
 	
 	let scrollView: UIScrollView = {
 		let view = UIScrollView()
@@ -25,8 +26,7 @@ class WordDetailViewController: UIViewController {
 	// definition
 	lazy var definitionView: WordDetailView = {
 		let detail = WordDetailView(
-			partOfSpeech: word.partOfSpeech,
-			content: word.definition,
+			content: result.definition,
 			detailType: .definition)
 
 		return detail
@@ -35,7 +35,7 @@ class WordDetailViewController: UIViewController {
 	// synonyms
 	lazy var synonymView: WordDetailView = {
 		let detail = WordDetailView(
-			content: word.synonym,
+			content: result.synonyms?.joined(separator: " | "),
 			detailType: .synonym)
 		return detail
 	}()
@@ -43,7 +43,7 @@ class WordDetailViewController: UIViewController {
 	// antonyms
 	lazy var antonymView: WordDetailView = {
 		let detail = WordDetailView(
-			content: word.antonym,
+			content: result.antonyms?.joined(separator: " | "),
 			detailType: .antonym)
 		return detail
 	}()
@@ -51,14 +51,15 @@ class WordDetailViewController: UIViewController {
 	// example
 	lazy var exampleView: WordDetailView = {
 		let detail = WordDetailView(
-			content: word.example,
+			content: result.examples?.joined(separator: " | "),
 			detailType: .example)
 		return detail
 	}()
 	
 	// MARK - Initializer
-	init(word: Word) {
+	init(word: String, result: WordResult) {
 		self.word = word
+		self.result = result
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -71,7 +72,7 @@ class WordDetailViewController: UIViewController {
 	override func loadView() {
 		super.loadView()
 		
-		navigationItem.title = word.name
+		navigationItem.title = word
 		navigationController?.navigationBar.prefersLargeTitles = true
 		
 		view.backgroundColor = .backgroundColor
@@ -99,10 +100,21 @@ class WordDetailViewController: UIViewController {
 			scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
 		
-		stackView.addArrangedSubview(definitionView)
-		stackView.addArrangedSubview(synonymView)
-		stackView.addArrangedSubview(antonymView)
-		stackView.addArrangedSubview(exampleView)
+		if result.definition != nil {
+			stackView.addArrangedSubview(definitionView)
+		}
+		
+		if result.synonyms != nil {
+			stackView.addArrangedSubview(synonymView)
+		}
+		
+		if result.antonyms != nil {
+			stackView.addArrangedSubview(antonymView)
+		}
+		
+		if result.examples != nil {
+			stackView.addArrangedSubview(exampleView)
+		}
 		
 		scrollView.addSubview(stackView)
 		

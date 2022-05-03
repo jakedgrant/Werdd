@@ -8,6 +8,15 @@
 import UIKit
 
 class InitialViewController: UIViewController {
+	var currentWord: Word? {
+		didSet {
+			if let word = currentWord {
+				wordView.update(word: word)
+			}
+		}
+	}
+	
+	var searchWord: Word?
 	
 	// MARK: - UIKit Controls
 	let titleLabel: UILabel = {
@@ -26,7 +35,7 @@ class InitialViewController: UIViewController {
 	lazy var randomWordButton: SymbolButton = {
 		let button = SymbolButton(
 			systemName: "arrow.clockwise.circle",
-			withAction: getRandomWord)
+			withAction: randomWordRequested)
 		button.animation = {
 			let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
 			   rotation.toValue = NSNumber(value: Double.pi * 2)
@@ -43,13 +52,36 @@ class InitialViewController: UIViewController {
 		table.backgroundColor = .gapLightYellow
 		table.dataSource = self
 		table.delegate = self
-		table.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.wordCellIdentifier)
+		table.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.reuseIdentifier)
+		table.register(SearchBarHeaderView.self, forHeaderFooterViewReuseIdentifier: SearchBarHeaderView.reuseIdentifier)
 		table.separatorStyle = .none
 		return table
 	}()
 	
+	let searchBox: UITextField = {
+		let textField = UITextField()
+		textField.placeholder = "Search words"
+		textField.clearsOnBeginEditing = true
+		textField.font = UIFont.playfairDisplayFont(.regular, size: 16)
+		textField.keyboardType = .alphabet
+		return textField
+	}()
+	
+	let searchButton: UIButton = {
+		let button = UIButton(type: .roundedRect)
+		button.setTitle("Search", for: .normal)
+		button.tintColor = .gapRed
+		return button
+	}()
+	
 	// MARK: - Properties
-	var words = Words().words
+	var words = [Word(word: "thing",
+					  results: [WordResult(
+						definition: "this is a thingy thing thing",
+						partOfSpeech: .verb,
+						synonyms: nil,
+						antonyms: nil,
+						examples: nil)])]
 
 	// MARK: - UI Lifecycle
 	override func viewWillAppear(_ animated: Bool) {
@@ -61,11 +93,13 @@ class InitialViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .backgroundColor
-
-		words.sort { $0.name < $1.name }
 		
-		getRandomWord()
+		searchButton.addTarget(self, action: #selector(searchWordRequested), for: .touchUpInside)
+
+		words.sort { $0.word < $1.word }
+		
 		addSubViews()
+		randomWordRequested()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -107,49 +141,170 @@ class InitialViewController: UIViewController {
 	}
 	
 	// MARK: - Actions
-	private func getRandomWord() {
-		self.wordView.update(word: self.words.randomElement()!)
+	private func randomWordRequested() {
+		fetchRandomWord { word, error in
+			if let error = error {
+				print(error.localizedDescription)
+			}
+			
+			DispatchQueue.main.async { [weak self] in
+				self?.currentWord = word
+				self?.removeSpinner()
+			}
+		}
 	}
 	
-	@objc func presentRandomWordDetail() {
-		let wordDetailVC = WordDetailViewController(word: words.randomElement()!)
-		navigationController?.pushViewController(wordDetailVC, animated: true)
+	@objc private func searchWordRequested(for word: String?) {
+		// TODO: Dismiss keyboard on button press
+		
+		if let word = word?.lowercased() {
+			fetchSearchWord(word) { word, error in
+				if let error = error {
+					print(error.localizedDescription)
+				}
+				
+				DispatchQueue.main.async { [weak self] in
+					self?.searchWord = word
+					self?.wordTable.reloadData()
+					self?.removeSpinner()
+				}
+			}
+		}
 	}
 	
-	private func presentWordDetail(for word: Word) {
-		var showWord = word
-		showWord.synonym = "eject" // TODO: remove this
-		showWord.antonym = "welcome"
-		showWord.example = "Yet the zeal and speed of his defenestration should give us some discomfort."
-		let wordDetailVC = WordDetailViewController(word: showWord)
+	// MARK: - Networking
+	private func fetchRandomWord(completion: @escaping (Word?, Error?) -> Void) {
+		guard let randomWordUrl = URL(string: "https://wordsapiv1.p.rapidapi.com/words/?random=true") else {
+			print("Invalid URL")
+			return
+		}
+		
+		var urlRequest = URLRequest(url: randomWordUrl)
+		urlRequest.httpMethod = "GET"
+		urlRequest.allHTTPHeaderFields = [
+			"X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
+			"X-RapidAPI-Key": Secrets.wordApiKey
+		]
+		
+		addSpinner()
+		
+		URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+			guard let data = data, error == nil else {
+				completion(nil, error)
+				return
+			}
+			
+			do {
+				let word = try JSONDecoder().decode(Word.self, from: data)
+				completion(word, error)
+				print(word)
+			}
+			catch {
+				print("Failed to convert \(error.localizedDescription)")
+				completion(nil, error)
+			}
+		}.resume()
+	}
+	
+	private func fetchSearchWord(_ word: String, completion: @escaping (Word?, Error?) -> Void) {
+		guard let searchWordUrl = URL(string: "https://wordsapiv1.p.rapidapi.com/words/\(word)") else {
+			print("Invalid URL")
+			return
+		}
+		
+		var urlRequest = URLRequest(url: searchWordUrl)
+		urlRequest.httpMethod = "GET"
+		urlRequest.allHTTPHeaderFields = [
+			"X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
+			"X-RapidAPI-Key": Secrets.wordApiKey
+		]
+		
+		addSpinner()
+				
+		URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+			guard let data = data, error == nil else {
+				completion(nil, error)
+				return
+			}
+			
+			do {
+				let word = try JSONDecoder().decode(Word.self, from: data)
+				completion(word, error)
+				print(word)
+			}
+			catch {
+				print("Failed to convert \(error.localizedDescription)")
+				completion(nil, error)
+			}
+		}.resume()
+	}
+	
+	private func presentWordDetail(for word: String, with result: WordResult) {
+		let wordDetailVC = WordDetailViewController(word: word, result: result)
 		navigationController?.pushViewController(wordDetailVC, animated: true)
 	}
 }
 
 // MARK: - UITableViewDataSource
 extension InitialViewController: UITableViewDataSource {
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: SearchBarHeaderView.reuseIdentifier) as? SearchBarHeaderView else {
+			return nil
+		}
+		
+		headerView.buttonAction = { [weak self] in
+			self?.searchWordRequested(for: headerView.searchTextField.text)
+		}
+		
+		return headerView
+	}
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		words.count
+		searchWord?.results?.count ?? 0
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.wordCellIdentifier, for: indexPath) as? WordTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.reuseIdentifier, for: indexPath) as? WordTableViewCell else {
 			return UITableViewCell()
 		}
 		
-		let word = words[indexPath.row]
-		cell.update(word: word)
-	
-		return cell
+		if let word = searchWord?.word, let results = searchWord?.results {
+			let result = results[indexPath.row]
+			
+			cell.update(word: word, result: result)
+			return cell
+		} else {
+			return UITableViewCell()
+		}
 	}
 }
 
 // MARK: - UITableViewDelegate
 extension InitialViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let selectedWord = words[indexPath.row]
+		if let word = searchWord?.word, let result = searchWord?.results?[indexPath.row] {
+			presentWordDetail(for: word, with: result)
+		}
+	}
+	
+// MARK: - Spinner
+	func addSpinner() {
+		let child = SpinnerViewController()
 		
-		presentWordDetail(for: selectedWord)
+		addChild(child)
+		child.view.frame = view.frame
+		view.addSubview(child.view)
+		child.didMove(toParent: self)
+	}
+	
+	func removeSpinner() {
+		
+		let child = children.first as? SpinnerViewController
+		if let child = child {
+			child.willMove(toParent: nil)
+			child.view?.removeFromSuperview()
+			child.removeFromParent()
+		}
 	}
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class WordTableViewCell: UITableViewCell {
-	static let wordCellIdentifier = "WordTableViewCell"
+	static let reuseIdentifier = "WordTableViewCell"
 
 	// MARK: - UIProperties
 	private let wordHStack: UIStackView = {
@@ -49,15 +49,6 @@ class WordTableViewCell: UITableViewCell {
 		return view
 	}()
 	
-	private let selectedContainerView = UIView()
-	
-	private let selectedView: RoundedUIView = {
-		let view = RoundedUIView()
-		view.layer.borderWidth = 4
-		view.layer.borderColor = UIColor.gapYellow.cgColor
-		return view
-	}()
-	
 	// MARK: - Initializers
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -71,20 +62,7 @@ class WordTableViewCell: UITableViewCell {
 	private func setUpUI() {		
 		backgroundColor = .gapLightYellow
 		
-//		selectedView.cornerRadius = 40
-//		selectedView.makeCornersRounded()
-//		selectedContainerView.addSubview(selectedView)
-//		selectedView.activate(constraints: [
-//			selectedView.topAnchor.constraint(equalTo: selectedContainerView.topAnchor, constant: 3),
-//			selectedView.leadingAnchor.constraint(equalTo: selectedContainerView.leadingAnchor, constant: 12),
-//			selectedView.trailingAnchor.constraint(equalTo: selectedContainerView.trailingAnchor, constant: -12),
-//			selectedView.bottomAnchor.constraint(equalTo: selectedContainerView.bottomAnchor, constant: -3),
-//		])
-		
-		// Set background if selected
-//		let backgroundView = RoundedUIView()
-//		backgroundView.backgroundColor = .gapYellow
-		selectedBackgroundView = selectedContainerView
+		selectedBackgroundView = UIView()
 		
 		wordHStack.addArrangedSubview(wordLabel)
 		wordHStack.addArrangedSubview(partOfSpeechLabel)
@@ -114,13 +92,9 @@ class WordTableViewCell: UITableViewCell {
 		])
 	}
 	
-	func update(word: Word) {
-		wordLabel.text = word.name
-		partOfSpeechLabel.text = word.partOfSpeech.rawValue
-		definitionLabel.text = word.definition
+	func update(word: String, result: WordResult) {
+		wordLabel.text = word
+		partOfSpeechLabel.text = result.partOfSpeech?.rawValue
+		definitionLabel.text = result.definition
 	}
-	
-//	override func setSelected(_ selected: Bool, animated: Bool) {
-//		super.setSelected(selected, animated: true)
-//	}
 }

@@ -9,7 +9,7 @@ import UIKit
 
 class WordDetailView: UIView, RoundableView {
 	var cornerRadius: CGFloat = 34.0
-	var partOfSpeech: Word.PartOfSpeech? = nil
+	var partOfSpeech: PartOfSpeech? = nil
 	var content: String?
 	var detailType: WordInfoType?
 	
@@ -58,7 +58,7 @@ class WordDetailView: UIView, RoundableView {
 		setUpUI()
 	}
 	
-	convenience init(partOfSpeech: Word.PartOfSpeech? = nil, content: String?, detailType: WordInfoType?) {
+	convenience init(partOfSpeech: PartOfSpeech? = nil, content: String?, detailType: WordInfoType?) {
 		self.init(frame: .zero)
 		
 		self.partOfSpeech = partOfSpeech

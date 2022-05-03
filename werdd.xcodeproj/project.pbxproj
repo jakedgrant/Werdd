@@ -22,6 +22,9 @@
 		235F2E2827E4400A00DA1615 /* SymbolButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2727E4400A00DA1615 /* SymbolButton.swift */; };
 		235F2E2A27E515D700DA1615 /* RoundedUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235F2E2927E515D700DA1615 /* RoundedUIView.swift */; };
 		2388CB6927F7FB7A006079CD /* WordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2388CB6827F7FB7A006079CD /* WordTableViewCell.swift */; };
+		23C542BA2814B5640072693B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C542B92814B5640072693B /* Secrets.swift */; };
+		23C542BC2814E7070072693B /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C542BB2814E7070072693B /* SpinnerViewController.swift */; };
+		23C542BE2817A1740072693B /* SearchBarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C542BD2817A1740072693B /* SearchBarHeaderView.swift */; };
 		23CE0242280D26D700537FDD /* WordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0241280D26D700537FDD /* WordDetailViewController.swift */; };
 		23CE0244280D297300537FDD /* WordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0243280D297300537FDD /* WordDetailView.swift */; };
 		23E3458727ED68F60017885F /* RoundedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E3458627ED68F60017885F /* RoundedTableView.swift */; };
@@ -46,6 +49,9 @@
 		235F2E2727E4400A00DA1615 /* SymbolButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolButton.swift; sourceTree = "<group>"; };
 		235F2E2927E515D700DA1615 /* RoundedUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUIView.swift; sourceTree = "<group>"; };
 		2388CB6827F7FB7A006079CD /* WordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTableViewCell.swift; sourceTree = "<group>"; };
+		23C542B92814B5640072693B /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		23C542BB2814E7070072693B /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
+		23C542BD2817A1740072693B /* SearchBarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarHeaderView.swift; sourceTree = "<group>"; };
 		23CE0241280D26D700537FDD /* WordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailViewController.swift; sourceTree = "<group>"; };
 		23CE0243280D297300537FDD /* WordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailView.swift; sourceTree = "<group>"; };
 		23E3458627ED68F60017885F /* RoundedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTableView.swift; sourceTree = "<group>"; };
@@ -98,6 +104,7 @@
 				2328989E27DFD47F000789DB /* Extensions */,
 				2354EA9C27D9AC5400B1E8F8 /* AppDelegate.swift */,
 				2354EA9E27D9AC5400B1E8F8 /* SceneDelegate.swift */,
+				23C542B92814B5640072693B /* Secrets.swift */,
 				2354EAA527D9AC5500B1E8F8 /* Assets.xcassets */,
 				2354EAA727D9AC5500B1E8F8 /* LaunchScreen.storyboard */,
 				2354EAAA27D9AC5500B1E8F8 /* Info.plist */,
@@ -133,6 +140,7 @@
 				23E3458627ED68F60017885F /* RoundedTableView.swift */,
 				2388CB6827F7FB7A006079CD /* WordTableViewCell.swift */,
 				23CE0243280D297300537FDD /* WordDetailView.swift */,
+				23C542BD2817A1740072693B /* SearchBarHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -142,6 +150,7 @@
 			children = (
 				2354EAA027D9AC5400B1E8F8 /* InitialViewController.swift */,
 				23CE0241280D26D700537FDD /* WordDetailViewController.swift */,
+				23C542BB2814E7070072693B /* SpinnerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -220,8 +229,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				235F2E2627E4326700DA1615 /* HeroWordView.swift in Sources */,
+				23C542BA2814B5640072693B /* Secrets.swift in Sources */,
 				2388CB6927F7FB7A006079CD /* WordTableViewCell.swift in Sources */,
 				235F2E2A27E515D700DA1615 /* RoundedUIView.swift in Sources */,
+				23C542BC2814E7070072693B /* SpinnerViewController.swift in Sources */,
 				2354EAA127D9AC5400B1E8F8 /* InitialViewController.swift in Sources */,
 				23E3458727ED68F60017885F /* RoundedTableView.swift in Sources */,
 				23CE0244280D297300537FDD /* WordDetailView.swift in Sources */,
@@ -232,6 +243,7 @@
 				2354EA9F27D9AC5400B1E8F8 /* SceneDelegate.swift in Sources */,
 				232898A027DFD4B1000789DB /* UIView+Extension.swift in Sources */,
 				2354EAB827D9B2CC00B1E8F8 /* Colors+Extension.swift in Sources */,
+				23C542BE2817A1740072693B /* SearchBarHeaderView.swift in Sources */,
 				23E3458927F2BD1F0017885F /* UIFont+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
