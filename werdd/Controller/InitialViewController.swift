@@ -166,6 +166,7 @@ class InitialViewController: UIViewController {
 				DispatchQueue.main.async { [weak self] in
 					self?.searchWord = word
 					self?.wordTable.reloadData()
+					self?.removeSpinner()
 				}
 			}
 		}
@@ -207,7 +208,7 @@ class InitialViewController: UIViewController {
 	
 	private func fetchSearchWord(_ word: String, completion: @escaping (Word?, Error?) -> Void) {
 		guard let searchWordUrl = URL(string: "https://wordsapiv1.p.rapidapi.com/words/\(word)") else {
-			print("INvalid URL")
+			print("Invalid URL")
 			return
 		}
 		
@@ -217,6 +218,8 @@ class InitialViewController: UIViewController {
 			"X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
 			"X-RapidAPI-Key": Secrets.wordApiKey
 		]
+		
+		addSpinner()
 				
 		URLSession.shared.dataTask(with: urlRequest) { data, response, error in
 			guard let data = data, error == nil else {
